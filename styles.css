@@ -1,0 +1,153 @@
+.micotendor{
+    background-image: url('./back.jpg'); /* Replace with your image path */
+    background-repeat: repeat; /* Optional: Set how the image repeats (repeat, no-repeat, etc.) */
+    background-size: cover; /* Optional: Scale the image to cover the card */
+    background-position: center; /* Optional: Position the image within the card */
+}
+
+.centrado{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+
+}
+
+.card-styles{
+    background-color: white;
+    padding: 20px;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.btn.btn-1{
+    border: 1px solid rgb(99, 99, 99);
+    background-color: #DBEDCC;
+    border-radius: 20px;
+    font-weight: 200;
+
+}
+.btn.btn-2{
+    border: 1px solid rgb(99, 99, 99);
+    background-color: #eacced;
+    border-radius: 20px;
+    font-weight: 200;
+
+}
+.btn.btn-3{
+    border: 1px solid rgb(99, 99, 99);
+    background-color: #a2c9c9;
+    border-radius: 20px;
+    font-weight: 200;
+
+}
+.btn.btn-3{
+    border: 1px solid rgb(212, 165, 165);
+    background-color: #ff4757;
+    border-radius: 20px;
+    font-weight: 200;
+    color: #DBEDCC;
+
+}
+.first-image{
+    width: 60px;
+    height: 60px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.second-image{
+    width: 90px;
+    height: 90px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.tercer-image{
+    width: 150px;
+    height: 150px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.title{
+    font-size: 25px;
+    color: #293333;
+    font-weight: 700;
+}
+
+.bodyheart{
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart{
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background: #ff4757;
+    transform: rotate(-45deg);
+    box-shadow: -10px 10px 90px #ff4757;
+    animation: animate .6s linear infinite;
+
+}
+@keyframes animate {
+    0%{
+        transform: rotate(-45deg) scale(1.07);
+    }
+    80%{
+        transform: rotate(-45deg) scale(1.0);
+    }
+    100%{
+        transform: rotate(-45deg) scale(0.8);
+
+    }
+    
+}
+.heart::before{
+    content: '';
+    position: absolute;
+    top: -50%;
+    width: 70px;
+    height: 70px;
+    background: #ff4757;
+    border-radius: 50%;
+}
+
+.heart::after{
+    content: '';
+    position: absolute;
+    right: -50%;
+    width: 70px;
+    height: 70px;
+    background: #ff4757;
+    border-radius: 50%;
+
+}
+
+.content-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 50%;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #000; /* Cambia este color al que desees */
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: #555; /* Cambia este color al que desees para el hover */
+}
