@@ -1,5 +1,5 @@
 .micotendor{
-    background-image: url('/image/back.jpg'); /* Replace with your image path */
+    background-image: url('./image/back.jpg'); /* Replace with your image path */
     background-repeat: repeat; /* Optional: Set how the image repeats (repeat, no-repeat, etc.) */
     background-size: cover; /* Optional: Scale the image to cover the card */
     background-position: center; /* Optional: Position the image within the card */
