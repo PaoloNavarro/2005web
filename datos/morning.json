@@ -1,0 +1,295 @@
+{
+    "morningMessages": [
+      {
+        "modalTitle": "En las mañanas☀️",
+        "headerText": "Hoy es un nuevo día🖼️\nDonde hay mucho por aprender 😁\n😆 Te mando la mejores energías el día de hoy🙌🏻\nTu puedes con cualquier reto!!!\n✨ Eres increíble no lo olvides\n💞 Se te aprecia mucho!!!",
+        "accordion": {
+          "accordionTitle": "Esta vez un mensaje menos enojado",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "2005 sos increíble no permitas que nadie te haga creer lo contrario"
+            },
+            {
+              "id": "f2-morning",
+              "text": "Te regalo una flor de mañana para recordarte que todos los días merecemos ser queridos y hoy te queremos mucho."
+            },
+            {
+              "id": "f3-morning",
+              "text": "NOTA: Aunque te gusten de 30, sos una muy buena persona. Vas por el camino correcto."
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m.jpg",
+          "alt": "Imagen de motivación matutina"
+        }, 
+        "imageAcordion": {
+          "src": "./image/morning/flork-m2.jpg",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "Otro Mensaje para la niña con cabello lindo",
+        "headerText": "¡Despierta con una sonrisa! 😁\nToma el reto del dia de hoy.\nHaz que hoy sea increíble y no olvides disfrutar cada momento.\n💪 Eres capaz de todo lo que te propongas!",
+        "accordion": {
+          "accordionTitle": "Mensaje Inspirador para Hoy🎁",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "Disfruta con lo que tienes pero no dejes de ver más lejos."
+            },
+            {
+              "id": "f2-morning",
+              "text": "Recuerda que los pequeños pasos te llevan a grandes logros. Sigue adelante."
+            },
+            {
+              "id": "f3-morning",
+              "text": "La actitud positiva es la clave para superar cualquier desafío. ¡Ánimo!"
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m3.jpg",
+          "alt": "Imagen inspiradora para el inicio del día"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m4.jpg",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "Comienza el día con alegría ☀️",
+        "headerText": "¡Buenos días! Hater 🌞\nSe feliz, la tritesa no merece estar mucho tiempo en el control.\nEspero hoy sea un buen inicio de dia.\n¡Hoy es tu día para brillar! ✨",
+        "accordion": {
+          "accordionTitle": "💌Un pensamiento positivo",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "La vida es un 10% lo que nos ocurre y un 90% cómo reaccionamos a ello."
+            },
+            {
+              "id": "f2-morning",
+              "text": "Crecer es clave, creo que ya no me alcanza 🏃🏻 en edad pero no tengo duda que sera muy grande."
+            },
+            {
+              "id": "f3-morning",
+              "text": "Cree en ti como yo creo en ti y en todo lo que eres. Sabes que hay algo dentro de ti que es más grande que cualquier obstáculo. mi profunda admiracion para alguien del 2005"
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m5.jpg",
+          "alt": "Imagen de motivación matutina"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m6.jpg",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "🌄 Un nuevo día, una nueva esperanza 🌟",
+        "headerText": "¡Levántate y brilla! como tu sabes hacerlo ✨\nCada amanecer trae nuevas esperanzas y sueños.\nHoy es un día perfecto para ser feliz.\nNo olvides que eres increíble y puedes lograr todo lo que te propongas.",
+        "accordion": {
+          "accordionTitle": "Un mensajito de este ancianito 👴🏻 para la niña pequeña.",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "No dudes en ser tu ni un segundo⏱️"
+            },
+            {
+              "id": "f2-morning",
+              "text": "Hablando de tiempo el tiempo es bueno y consigo traer maravillas el tiempo me llevo a ti por ejemplo."
+            },
+            {
+              "id": "f3-morning",
+              "text": "Apoco no me quedo bonita la frase arriba sonrei un poquito si asi fue."
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m7.png",
+          "alt": "Imagen de motivación matutina"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m8.png",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "🙌🏻Motivación para tu mañana ",
+        "headerText": "🌞¡Buenos días a la 2005! \nHoy es un nuevo día para alcanzar tus metas.\nLevántate con determinación y ve a la cama con satisfacción.\n¡Eres increíble y capaz de todo!",
+        "accordion": {
+          "accordionTitle": "Motivación del día",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "El éxito es la suma de pequeños esfuerzos repetidos día tras día."
+            },
+            {
+              "id": "f2-morning",
+              "text": "La clave para lograr tus sueños es empezar. ni modo que no JAJAJA"
+            },
+            {
+              "id": "f3-morning",
+              "text": "Confía en ti. Sabes más de lo que crees, eres realemente increible siempre dire que tu madurez es envidiable"
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m10.png",
+          "alt": "Imagen de motivación matutina"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m11.png",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "🔋Buenos días con energía al maximo!!!",
+        "headerText": "¡Despierta con entusiasmo! 🌟\nCada día es una nueva oportunidad para alcanzar tus sueños.\nHoy es el momento perfecto para ser feliz y hacer lo que amas.\n¡Tú puedes lograr todo lo que te propongas!",
+        "accordion": {
+          "accordionTitle": "frase de tia con piolin🐤",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "No seas tu enemigo cree tanto en ti como yo lo hago."
+            },
+            {
+              "id": "f2-morning",
+              "text": "Pero no creas en el de 30 o 26 que más da hombres!!!."
+            },
+            {
+              "id": "f3-morning",
+              "text": "La fuerza no proviene de la capacidad física. Proviene de una voluntad indomable. tampoco viene de señores de 30"
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m12.png",
+          "alt": "Imagen de motivación matutina"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m13.webp",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "Empezando con una sonrisa 😊 de seguro en ti se ve hermosa",
+        "headerText": "¡Buenos días! 💞\nCada amanecer trae nuevas oportunidades para ser feliz.\nSonríe que te aseguro asi te miras linda.\n¡Hoy es tu día para brillar y ser increíble!",
+        "accordion": {
+          "accordionTitle": "Quien fuera tu para que me acosen JEJEJE bromita",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "La felicidad no es algo hecho. tu decides cuanto algo te afecta."
+            },
+            {
+              "id": "f2-morning",
+              "text": "Incluso si una gallina🐔 te persigue se que podras con ello."
+            },
+            {
+              "id": "f3-morning",
+              "text": "La vida es corta. Haz más de lo que te hace feliz. Meno andar con el de 30👀"
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m14.webp",
+          "alt": "Imagen de motivación matutina"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m15.png",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "Una mañana positiva para un dia positico🪴",
+        "headerText": "Buenos días!!! 🌞\nHoy es un nuevo día para ser feliz y hacer lo que amas.\nLevántate con energía y disfruta cada momento.\n¡Eres increíble y puedes lograr todo lo que te propongas!",
+        "accordion": {
+          "accordionTitle": "Un par de mensajtos para mi hater😶‍🌫️",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "Ser constante y paciente es clave en la vida."
+            },
+            {
+              "id": "f2-morning",
+              "text": "No tengas miedo de volver a empezar."
+            },
+            {
+              "id": "f3-morning",
+              "text": "Confía en ti, te aseguro que la decesiones que tomes el dia de hoy seran las correctas, decidiste hablar conmigo eso es muestra de buenas decesiones.👓"
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m16.png",
+          "alt": "Imagen de motivación matutina"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m17.png",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "Amanecer con esperanza y con determinación",
+        "headerText": "¡Buenos días! 😉🌞\nHoy puedes alcanzar tus metas.\nEs el momento perfecto para ser tu.\n¡No duedes de que puedes lograr todo lo que te propongas!",
+        "accordion": {
+          "accordionTitle": "Un poquito de cariño💞",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "La vida es la suma de todo lo que hacemos y dejamos de hacer."
+            },
+            {
+              "id": "f2-morning",
+              "text": "No tengas miedo a las cosas que aun no pasan."
+            },
+            {
+              "id": "f3-morning",
+              "text": "No pienses tanto realmente podras con esto y más!!!"
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m18.png",
+          "alt": "Imagen de motivación matutina"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m19.jpg",
+          "alt": "Imagen de motivación matutina"
+        }
+      },
+      {
+        "modalTitle": "Mañana llena de energía ☀️",
+        "headerText": "Holi holiiii buenos días!!! 🌅\nHoy sera un dia excelente!!!\n¡Se te quiere mucho!",
+        "accordion": {
+          "accordionTitle": "Modo cariñosito🐻🐻‍❄️",
+          "messages": [
+            {
+              "id": "f1-morning",
+              "text": "Hoy estas más lejos de lo que estabas ayer."
+            },
+            {
+              "id": "f2-morning",
+              "text": "Aunque avaces paraciera que no avanzas siempre hay un cambio por pequeño que sea."
+            },
+            {
+              "id": "f3-morning",
+              "text": "Estamos orgulloso de ti."
+            }
+          ]
+        },
+        "imageModal": {
+          "src": "./image/morning/flork-m11.png",
+          "alt": "Imagen de motivación matutina"
+        },
+        "imageAcordion": {
+          "src": "./image/morning/flork-m19.jpg",
+          "alt": "Imagen de motivación matutina"
+        }
+      }
+    ]
+  }
+  

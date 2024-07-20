@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Mensajes Dinámicos</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  </head>
+  <body>
+    <main class="container mt-5">
+      <div class="text-center">
+        <h1>Mensajes del Día</h1>
+        <button type="button" class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#morningModal">Mensajes de la Mañana</button>
+        <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#noonModal">Mensajes del Mediodía</button>
+        <button type="button" class="btn btn-dark m-2" data-bs-toggle="modal" data-bs-target="#nightModal">Mensajes de la Noche</button>
+      </div>
+    </main>
+
+    <!-- Modales -->
+    <div class="modal fade" id="morningModal" tabindex="-1" aria-labelledby="morningModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="morningModalLabel">Mensajes de la Mañana</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="morningModalBody"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="noonModal" tabindex="-1" aria-labelledby="noonModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="noonModalLabel">Mensajes del Mediodía</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="noonModalBody"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="nightModal" tabindex="-1" aria-labelledby="nightModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="nightModalLabel">Mensajes de la Noche</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" id="nightModalBody"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script>
+      async function fetchMessages() {
+        const response = await fetch('mensajeshome.json');
+        const data = await response.json();
+        return data;
+      }
+
+      function getRandomMessage(messagesArray) {
+        const category = messagesArray[Math.floor(Math.random() * messagesArray.length)];
+        return category[Math.floor(Math.random() * category.length)];
+      }
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        const messages = await fetchMessages();
+        const morningModalBody = document.getElementById('morningModalBody');
+        const noonModalBody = document.getElementById('noonModalBody');
+        const nightModalBody = document.getElementById('nightModalBody');
+
+        document.getElementById('morningModal').addEventListener('show.bs.modal', () => {
+          morningModalBody.innerText = getRandomMessage(messages.morningMessages);
+        });
+
+        document.getElementById('noonModal').addEventListener('show.bs.modal', () => {
+          noonModalBody.innerText = getRandomMessage(messages.noonMessages);
+        });
+
+        document.getElementById('nightModal').addEventListener('show.bs.modal', () => {
+          nightModalBody.innerText = getRandomMessage(messages.nightMessages);
+        });
+      });
+    </script>
+  </body>
+</html>

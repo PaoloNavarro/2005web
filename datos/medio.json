@@ -1,0 +1,67 @@
+{
+    "noonMessages": [
+        {
+            "modalTitle": "En el medio día 🌄",
+            "headerText": "Espero que sí!!! 😠\nAunque siempre soy yo el que no come JEJEJE\nMucha suerte en tus actividades de tarde 🚗\nPero tú no necesitas suerte, ya eres suerte\n✨Las personas como tú son buena energía 🌟",
+            "buttonText": "¿Comiste bien?",
+            "image": {
+                "src": "./image/noon/2.webp",
+                "alt": "Flork comiendo"
+            }
+        },
+        {
+            "modalTitle": "Mediodía con Energía 💪",
+            "headerText": "¡Vamos a por la segunda mitad del día! 🌞\nRecarga tus energías con un buen almuerzo pero con buen chismecito !!! 🍽️\nY recuerda, la tarde está llena de posibilidades\n🌟 Eres una estrella brillante que ilumina todo a su alrededor.",
+            "buttonText": "¿Ya comiste?",
+            "image": {
+                "src": "./image/noon/4.jpg",
+                "alt": "Flork almorzando"
+            }
+        },
+        {
+            "modalTitle": "Almuerzo Motivacional 🌯",
+            "headerText": "¡Es hora de comer! 😋\nDisfruta de cada bocado y recarga fuerzas\nLa tarde promete ser increíble si tú lo decides\n💪 Con tu actitud, puedes lograrlo todo.",
+            "buttonText": "¿Comer es tan necesario?",
+            "image": {
+                "src": "./image/noon/5.png",
+                "alt": "Flork disfrutando el almuerzo"
+            }
+        },
+        {
+            "modalTitle": "Pausa para el Almuerzo 🍴",
+            "headerText": "¡Hora de un descanso merecido! pero no de mimir que aun no es hora los niños de hoy\nAprovecha para relajarte y disfrutar de tu comida contame algo!!! \nY no olvides que cada día es una nueva oportunidad\n🌻 ¡Adelante, eres imparable!",
+            "buttonText": "¿Comer si?",
+            "image": {
+                "src": "./image/noon/6.png",
+                "alt": "Flork descansando"
+            }
+        },
+        {
+            "modalTitle": "Energía de Medio Día 🌞",
+            "headerText": "Recuerda tomar un descanso y comer bien no manches tu outfit de seguro te ves linda 🍲\nTu cuerpo y mente lo agradecerán\nLa tarde es tuya para conquistarla\n✨ ¡Sigue brillando con tu luz!",
+            "buttonText": "¿Es de comer ok?",
+            "image": {
+                "src": "./image/noon/9.png",
+                "alt": "Flork con energía"
+            }
+        },
+        {
+            "modalTitle": "Mediodía Inspirador 💫",
+            "headerText": "Es momento de recargar fuerzas 🍛\nDisfruta de tu almuerzo y prepárate para una tarde exitosa\n🌟 Las mejores cosas están por venir\n¡Sigue adelante, eres increible cabello lindo!",
+            "buttonText": "¿Ya hace hambre?",
+            "image": {
+                "src": "./image/noon/10.png",
+                "alt": "Flork inspirado"
+            }
+        },
+        {
+            "modalTitle": "Tarde Prometedora 🌇",
+            "headerText": "¡Ya es medio día! 🌞\nEspero que estés disfrutando de tu comida\nRecuerda que cada momento es una oportunidad\nPara ser feliz y hacer feliz a los demás.",
+            "buttonText": "¿Unas hamburguesitas o no?",
+            "image": {
+                "src": "./image/noon/8.png",
+                "alt": "Flork en la tarde"
+            }
+        }
+    ]
+}

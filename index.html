@@ -11,7 +11,7 @@
 
   </head>
 
-  <body class="micotendor">
+  <body id="container"  class="micotendor">
     <header>
         <hr>
     </header>
@@ -68,122 +68,50 @@
     </footer>
 
     <!-- Modals -->
+
     <div class="modal fade" id="morningModal" tabindex="-1" aria-labelledby="morningModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="morningModalLabel">En los mañanas☀️</h5>
+            <h5 class="modal-title" id="morningModalLabel">En las mañanas☀️</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <!-- <div class="modal-body">
+          <div class="modal-body">
             <div class="text-center">
-                <div class="second-image">
-                    <img src="./image/flork-m.jpg" alt="">
-                </div>
-                Recuerda que cada dia es una oportunidad de descrubrir un mundo lleno de aventuras.
-                <br>
-                Aveces las cosas parecen dificiles 😔<br>
-                Pero no es nada con lo que tu no puedas🙌🏻<br>
-                👟Afronta esta carrera llamada vida <br>
-                Te aseguro que eres capaz de<br>
-                superar cada obstaculo!!!<br>
-                <div class="accordion pt-2" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button
-                                class="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne"
-                                aria-expanded="true"
-                                aria-controls="collapseOne"
-                            >
-                                ¿Lo leistes antes de la mañana?
-                            </button>
-                        </h2>
-                        <div
-                            id="collapseOne"
-                            class="accordion-collapse collapse "
-                            aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample"
-                        >
-                            <div class="accordion-body"
-                                <p>Mal, mal!!!! <br> hay que tener paciencia </p>
-                                <p>Normal en 2005</p>
-                                <div class="second-image">
-                                    <img src="./image/flork-nojado.png" alt="">
-                                </div>
-                               <h3>NOTA: No te olvides de brillar tanto que el sol te tenga envidia.</h3> 
-
-                            </div>
-                        </div>
+              <div id="imagen-morning" class="second-image">
+                <img id="morningImage" src="" alt="">
+              </div>
+              <div id="encabezado-morning">
+                <div id="morningHeaderText"></div>
+              </div>
+              <div class="accordion pt-2" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <div id="titulo-acordion-morning"></div>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <p id="f1-morning"></p>
+                      <div class="second-image">
+                        <img id="accordionImage" src="" alt="">
+                      </div>
+                      <h4 id="f2-morning"></h4>
+                      <h6 id="f3-morning"></h6>
                     </div>
-                    
+                  </div>
                 </div>
-                
+              </div>
             </div>
-
-         
-            
-          </div> -->
-           <div class="modal-body">
-            <div class="text-center">
-                <div class="second-image">
-                    <img src="./image/flork-m.jpg" alt="">
-                </div>
-                Hoy es un nuevo dia🖼️
-                <br>
-                Donde hay mucho por aprender 😁<br>
-                😆Te mando la mejores energias el dia de hoy🙌🏻<br>
-                Tu puedes con cualquier reto!!! <br>
-                ✨Eres increible no lo olvides<br>
-                💞Se te aprecia mucho!!!<br>
-                <div class="accordion pt-2" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button
-                                class="accordion-button"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne"
-                                aria-expanded="true"
-                                aria-controls="collapseOne"
-                            >
-                                Esta vez un mensaje menos enojado
-                            </button>
-                        </h2>
-                        <div
-                            id="collapseOne"
-                            class="accordion-collapse collapse "
-                            aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample"
-                        >
-                            <div class="accordion-body"
-                                
-                                <p>2005 sos increible no permitas que nadie te haga creer lo contrario</p>
-                                <div class="second-image">
-                                    <img src="./image/flork-gif.png" alt="">
-                                </div>
-                                <h4>Te regalo una flor de mañana para recordate, que todos los dias merecemos ser queridos y hoy te queremos mucho.</h4>
-                               <h6>NOTA: aunque te gusten de 30 sos una muy buena perosona, vas por el camino correcto.</h6> 
-
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-                
-            </div>
-
-         
-            
-          </div> 
+          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           </div>
         </div>
       </div>
     </div>
+
     <!-- segundo modal -->
     <div class="modal fade" id="noonModal" tabindex="-1" aria-labelledby="noonModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -201,24 +129,24 @@
                 <div>         
                     <p>
                         <button class="btn btn-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-                            ¿Ya comiste?
+                            <p id="textob">¿Ya comiste?</p>
                         </button>
                       </p>
                       <div style="min-height: 120px;">
                         <div class="collapse collapse-horizontal " id="collapseWidthExample">
-                          <div class="card card-body " style="width: 250px;">
-                           <h6>Espero que si!!! 😠</h6> 
-                           <p>Aunque siempre soy yo el que no come JEJEJE</p>
-                           <p>Mucha suerte en tus actividades de tarde 🚗</p>
-                            <h4>Pero tu no necesitas suerte ya eres suerte</h4>
-                            <h3>✨Las personas como tu son buena energia 🌟</h3>
+                          <div id="texto1" class="card card-body " style="width: 250px;">
+                           Espero que si!!! 😠<br>
+                           Aunque siempre soy yo el que no come JEJEJE <br>
+                           Mucha suerte en tus actividades de tarde 🚗 <br>
+                            Pero tu no necesitas suerte ya eres suerte <br>
+                            ✨Las personas como tu son buena energia 🌟
                           </div>
                         </div>
                       </div>
                 </div>
                 
                 <div class="tercer-image">
-                    <img src="./image/flork-comiendo.png" alt="">
+                    <img id="imagen" src="./image/flork-comiendo.png" alt="">
                 </div>
             </div>
           </div>
@@ -234,41 +162,39 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="nightModalLabel">En las noches 🌙</h5>
+            <h5 class="modal-title" id="nightModalLabel"></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            <div class="">
+
+            </div>
             <div class="d-flex justify-content-center">
-                <button type="button" 
-                class="btn btn-lg btn-3" 
-                data-bs-toggle="popover" 
-                data-bs-title="Feliz noche cabello bonito" 
-                data-bs-content="Recuerda que el siguiente dia esta esperando que descubras que hay para ti, que eres muy linda, educada, y se te aprecia mucho.">
-                ¿Ya a dormir?
-            </button>
+                <button id="button-t" type="button" 
+                  class="btn btn-lg btn-3" 
+                  data-bs-toggle="popover" 
+                  data-bs-title="" 
+                  data-bs-content="">
+                  ¿Ya a dormir?
+              </button>
             </div>
           
             <div class="text-center pt-2 pb-2">
-                <p>
-                    Espero tu siguiente dia este lleno de aventuras <br>
-                    Que afrontes cada cosa de la mejor manera <br>
-                    Y recuerdes eres: <br>
-                    <h6>✨✨una maravillosa persona✨✨ </h6> 
-                    <h4>Te regalo un par de florecitas 🌷para esta noche</h4>
-                    <h6>Aunque tranquialmente te mereces muchas más💯</h6>
+                <p id="textom1">
+                  
                 </p> 
             </div>
             <div class="content-image">
                 <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
                     <div class="carousel-inner">
                       <div class="carousel-item active">
-                        <img src="./image/flork-flower.webp" class="d-block w-100" alt="...">
+                        <img id="img-1" src="" class="d-block w-100" alt="...">
                       </div>
                       <div class="carousel-item">
-                        <img src="./image/flork-flower-1.webp" class="d-block w-100" alt="...">
+                        <img id="img-2" src="" class="d-block w-100" alt="...">
                       </div>
                       <div class="carousel-item">
-                        <img src="./image/flork-flowers.png" class="d-block w-100" alt="...">
+                        <img id="img-3" src="" class="d-block w-100" alt="...">
                       </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
@@ -283,10 +209,8 @@
                 </div>
             </div>
             <div class="text-center pt-2 pb-2">
-              <p>
-                  🎁Hoy te regalo estas tres <br>
-                  pero con los dias espero regalarte muchas más. <br>
-                  <h6>Hasta mañana!!!</h6>
+              <p id="fin-mod">
+               
               </p> 
           </div>
            
@@ -299,13 +223,126 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-                return new bootstrap.Popover(popoverTriggerEl)
-            })
-        });
+      document.addEventListener('DOMContentLoaded', function () {
+      const container = document.getElementById('container');
+      const backgrounds = ['background-1', 'background-2', 'background-3'];
+      const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+        
+      container.classList.add(randomBackground);
+    });
     </script>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+      // Función para cargar los mensajes desde el archivo JSON y actualizar el modal
+      function loadRandomMorningMessage() {
+        fetch('./datos/morning.json')
+          .then(response => response.json())
+          .then(data => {
+            // Seleccionar un mensaje aleatorio
+            const messages = data.morningMessages;
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            const message = messages[randomIndex];
+
+            // Actualizar el contenido del modal
+            document.getElementById('morningModalLabel').textContent = message.modalTitle;
+            document.getElementById('morningHeaderText').innerHTML = message.headerText;
+            document.getElementById('morningImage').src = message.imageModal.src;
+            document.getElementById('morningImage').alt = message.imageModal.alt;
+
+            document.getElementById('titulo-acordion-morning').textContent = message.accordion.accordionTitle;
+            
+            message.accordion.messages.forEach((msg, index) => {
+              document.getElementById(`f${index + 1}-morning`).textContent = msg.text;
+            });
+
+            // Asignar una imagen para el acordeón si existe
+            document.getElementById('accordionImage').src = message.imageAcordion.src;
+            document.getElementById('accordionImage').alt = message.imageAcordion.alt;
+          
+          })
+          .catch(error => console.error('Error loading JSON:', error));
+      }
+
+      // Añadir evento para cargar el mensaje aleatorio cuando se abre el modal
+      var myModal = document.getElementById('morningModal');
+      myModal.addEventListener('show.bs.modal', loadRandomMorningMessage);
+    });
+    </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Función para cargar los mensajes desde el archivo JSON y actualizar el modal
+    function loadRandomNoonMessage() {
+      fetch('./datos/medio.json')
+        .then(response => response.json())
+        .then(data => {
+          // Seleccionar un mensaje aleatorio
+          const messages = data.noonMessages;
+          const randomIndex = Math.floor(Math.random() * messages.length);
+          const message = messages[randomIndex];
+          console.log(message);
+          // Actualizar el contenido del modal
+          document.getElementById('noonModalLabel').textContent = message.modalTitle;
+          document.getElementById('texto1').innerHTML = message.headerText;
+          document.getElementById('imagen').src = message.image.src;
+          document.getElementById('imagen').alt = message.image.alt;
+          document.getElementById('textob').textContent = message.buttonText;
+        })
+        .catch(error => console.error('Error loading JSON:', error));
+    }
+  
+    // Añadir evento para cargar el mensaje aleatorio cuando se abre el modal
+    var noonModal = document.getElementById('noonModal');
+    noonModal.addEventListener('show.bs.modal', loadRandomNoonMessage);
+  });
+  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Función para cargar los mensajes desde el archivo JSON y actualizar el modal
+      function loadRandomNightMessage() {
+          fetch('datos/night.json')
+              .then(response => response.json())
+              .then(data => {
+                  // Seleccionar un mensaje aleatorio
+                  const messages = data.nightMessages;
+                  const randomIndex = Math.floor(Math.random() * messages.length);
+                  const message = messages[randomIndex];
+                  console.log(message);
+                  // Actualizar el contenido del modal
+                  document.getElementById('nightModalLabel').textContent = message.modalTitle;
+                  document.getElementById('textom1').innerHTML = message.mainText;
+                  document.getElementById('button-t').textContent = message.buttonText;
+                  document.getElementById('button-t').setAttribute('data-bs-title', message.popoverTitle);
+                  document.getElementById('button-t').setAttribute('data-bs-content', message.popoverContent);
+
+                  // Inicializar Popover
+                  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+                  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                      return new bootstrap.Popover(popoverTriggerEl)
+                  });
+
+                  // Actualizar las imágenes del carrusel
+                  for (let i = 0; i < message.carouselImages.length; i++) {
+                      document.getElementById(`img-${i+1}`).src = message.carouselImages[i].src;
+                      document.getElementById(`img-${i+1}`).alt = message.carouselImages[i].alt;
+                  }
+
+                  document.getElementById('fin-mod').innerHTML = message.footerText;
+              })
+              .catch(error => console.error('Error loading JSON:', error));
+      }
+
+      // Añadir evento para cargar el mensaje aleatorio cuando se abre el modal
+      var nightModal = document.getElementById('nightModal');
+      nightModal.addEventListener('show.bs.modal', loadRandomNightMessage);
+  });
+  </script>
+
+    
+
 </body>
 </html>

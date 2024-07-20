@@ -1,0 +1,115 @@
+{
+    "nightMessages": [
+      {
+        "modalTitle": "En las noches 🌙",
+        "popoverTitle": "Feliz noche cabello bonito",
+        "popoverContent": "Recuerda que el siguiente día está esperando que descubras qué hay para ti. Eres muy linda, educada, y se te aprecia mucho.",
+        "mainText": "Espero tu siguiente día esté lleno de aventuras <br>Que afrontes cada cosa de la mejor manera <br>Y recuerdes eres: <br>✨✨una maravillosa persona✨✨<br>Te regalo un par de florecitas 🌷para esta noche <br>Aunque tranquilamente te mereces muchas más💯",
+        "carouselImages": [
+          {
+            "src": "./image/night/flork-flower.webp",
+            "alt": "Imagen de Flork con flores 1"
+          },
+          {
+            "src": "./image/night/flork-flower-1.webp",
+            "alt": "Imagen de Flork con flores 2"
+          },
+          {
+            "src": "./image/night/flork-flowers.png",
+            "alt": "Imagen de Flork con flores 3"
+          }
+        ],
+        "footerText": "🎁Hoy te regalo estas tres <br>pero con los días espero regalarte muchas más. <br>Hasta mañana!!!",
+        "buttonText": "¿Ya a dormir?"
+      },
+      {
+        "modalTitle": "Descanso Nocturno 🌌",
+        "popoverTitle": "Dulces sueños, estrella brillante aunque tambien hater",
+        "popoverContent": "Mañana será un día maravilloso, lleno de nuevas oportunidades. Duerme bien y recuerda lo especial que eres.",
+        "mainText": "Que tu noche esté llena de paz y serenidad y no tanto hate <br>Que los sueños te lleven a lugares mágicos <br>Y al despertar, estés lista para brillar <br>🌟Eres una estrella única🌟<br>Te mando un abrazo cálido para esta noche, besos chao chao<br>💫Que descanses mucho💫",
+        "carouselImages": [
+          {
+            "src": "./image/night/1.png",
+            "alt": "Imagen de Flork soñando 1"
+          },
+          {
+            "src": "./image/night/2.png",
+            "alt": "Imagen de Flork soñando 2"
+          },
+          {
+            "src": "./image/night/3.jpeg",
+            "alt": "Imagen de Flork soñando 3"
+          }
+        ],
+        "footerText": "💤Que tengas una noche llena de descanso <br>y sueños hermosos como tu. <br>Peleamos mañana!",
+        "buttonText": "¿Lista para soñar?"
+      },
+      {
+        "modalTitle": "Sueños Dulces como tu🌠",
+        "popoverTitle": "Buenas noches, persona maravillosa nacida en el 2005",
+        "popoverContent": "Cierra los ojos y deja que los sueños te lleven a lugares felices. lugares felices no casas de señores de 30,  Mañana será otro día para brillar.",
+        "mainText": "Espero que tu noche sea tranquila <br>y que los sueños te traigan alegría <br>Recuerda siempre lo increíble que eres <br>✨✨No dejes de brillar✨✨<br>Te dejo un par de estrellas para esta noche <br>🌟Porque tú eres una de ellas💯",
+        "carouselImages": [
+          {
+            "src": "./image/night/4.webp",
+            "alt": "Imagen de Flork con estrellas 1"
+          },
+          {
+            "src": "./image/night/6.jpg",
+            "alt": "Imagen de Flork con estrellas 2"
+          },
+          {
+            "src": "./image/night/6.webp",
+            "alt": "Imagen de Flork con estrellas 3"
+          }
+        ],
+        "footerText": "🌠Hoy te dejo estas tres estrellas <br>para iluminar tu noche. <br>Hasta mañana! son flores pero es que no pude conseguir estrellas. por que la más bonita eres tu, lo se soy un crack",
+        "buttonText": "¿Preparada para dormir?"
+      },
+      {
+        "modalTitle": "Noche de Paz 🌌",
+        "popoverTitle": "Duerme bien, alma hermosa",
+        "popoverContent": "Deja que la noche te envuelva con su calma y que los sueños te llenen de paz y felicidad. Eres increíble.",
+        "mainText": "Que tu noche esté llena de calma <br>y que los sueños te llenen de paz <br>Recuerda siempre lo especial que eres <br>✨✨Brilla siempre✨✨<br>Te dejo un abrazo para esta noche <br>💫Descansa mucho💫",
+        "carouselImages": [
+          {
+            "src": "./image/night/8.jpg",
+            "alt": "Imagen de Flork en"
+          },
+          {
+            "src": "./image/night/9.webp",
+            "alt": "Imagen de Flork en calma 2"
+          },
+          {
+            "src": "./image/night/9.jpg",
+            "alt": "Imagen de Flork en calma 3"
+          }
+        ],
+        "footerText": "💤Te dejo estas tres imágenes <br>para una noche tranquila. <br>Hasta mañana!",
+        "buttonText": "¿Lista para la noche?"
+      },
+      {
+        "modalTitle": "Buenas Noches 🌙",
+        "popoverTitle": "Noche de descanso, corazón valiente(a lo chayanne)",
+        "popoverContent": "La noche es perfecta para descansar y soñar. Que mañana despiertes con energías renovadas y muchas sonrisas.",
+        "mainText": "Espero que tengas una noche maravillosa <br>Llena de sueños bonitos y paz <br>Recuerda siempre lo increíble que eres <br>✨✨Brilla siempre✨✨<br>Te dejo un par de sueños para esta noche <br>💫Descansa mucho💫",
+        "carouselImages": [
+          {
+            "src": "./image/night/10.jpg",
+            "alt": "Imagen de Flork en la noche 1"
+          },
+          {
+            "src": "./image/night/11.webp",
+            "alt": "Imagen de Flork en la noche 2"
+          },
+          {
+            "src": "./image/night/12.webp",
+            "alt": "Imagen de Flork en la noche 3"
+          }
+        ],
+        "footerText": "🌠Te dejo estas tres imágenes <br>para una noche mágica. <br>Hasta mañana!",
+        "buttonText": "¿Lista para descansar?"
+      }
+    ]
+}
+  
