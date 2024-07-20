@@ -24,7 +24,7 @@
               <a class="nav-link active" aria-current="page" href="#">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Proximante</a>
+              <a class="nav-link" href="./post.html">Blog(en construccion)</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Proximante</a>
@@ -244,148 +244,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-      const container = document.getElementById('container');
-      const backgrounds = ['background-1', 'background-2', 'background-3'];
-      const randomBackground = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-        
-      container.classList.add(randomBackground);
-    });
-    </script>
-    
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      let previousIndex = null;
-
-      function loadRandomMorningMessage() {
-        fetch('./datos/morning.json')
-          .then(response => response.json())
-          .then(data => {
-            const messages = data.morningMessages;
-            let randomIndex;
-
-            do {
-              randomIndex = Math.floor(Math.random() * messages.length);
-            } while (randomIndex === previousIndex);
-
-            previousIndex = randomIndex;
-            const message = messages[randomIndex];
-
-            // Actualizar el contenido del modal
-            document.getElementById('morningModalLabel').textContent = message.modalTitle;
-            document.getElementById('morningHeaderText').innerHTML = message.headerText;
-            document.getElementById('morningImage').src = message.imageModal.src;
-            document.getElementById('morningImage').alt = message.imageModal.alt;
-
-            document.getElementById('titulo-acordion-morning').textContent = message.accordion.accordionTitle;
-            
-            message.accordion.messages.forEach((msg, index) => {
-              document.getElementById(`f${index + 1}-morning`).textContent = msg.text;
-            });
-
-            // Asignar una imagen para el acordeón si existe
-            document.getElementById('accordionImage').src = message.imageAcordion.src;
-            document.getElementById('accordionImage').alt = message.imageAcordion.alt;
-          })
-          .catch(error => console.error('Error loading JSON:', error));
-      }
-
-      var myModal = document.getElementById('morningModal');
-      myModal.addEventListener('show.bs.modal', loadRandomMorningMessage);
-    });
-
-    </script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-      let lastNoonIndex = -1; // Variable para almacenar el índice del último mensaje mostrado
-
-      function loadRandomNoonMessage() {
-          fetch('./datos/medio.json')
-              .then(response => response.json())
-              .then(data => {
-                  const messages = data.noonMessages;
-                  let randomIndex;
-                  
-                  // Seleccionar un mensaje aleatorio que no sea el mismo que el anterior
-                  do {
-                      randomIndex = Math.floor(Math.random() * messages.length);
-                  } while (randomIndex === lastNoonIndex);
-
-                  lastNoonIndex = randomIndex; // Actualizar el índice del último mensaje mostrado
-                  
-                  const message = messages[randomIndex];
-                  console.log(message);
-
-                  // Actualizar el contenido del modal
-                  document.getElementById('noonModalLabel').textContent = message.modalTitle;
-                  document.getElementById('texto1').innerHTML = message.headerText;
-                  document.getElementById('imagen').src = message.image.src;
-                  document.getElementById('imagen').alt = message.image.alt;
-                  document.getElementById('textob').textContent = message.buttonText;
-              })
-              .catch(error => console.error('Error loading JSON:', error));
-      }
-
-      // Añadir evento para cargar el mensaje aleatorio cuando se abre el modal
-      var noonModal = document.getElementById('noonModal');
-      noonModal.addEventListener('show.bs.modal', loadRandomNoonMessage);
-  });
-</script>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-      let lastRandomIndex = -1; // Variable para almacenar el índice del último mensaje mostrado
-
-      function loadRandomNightMessage() {
-          fetch('datos/night.json')
-              .then(response => response.json())
-              .then(data => {
-                  // Seleccionar un mensaje aleatorio que no sea el mismo que el anterior
-                  const messages = data.nightMessages;
-                  let randomIndex;
-                  
-                  do {
-                      randomIndex = Math.floor(Math.random() * messages.length);
-                  } while (randomIndex === lastRandomIndex);
-
-                  lastRandomIndex = randomIndex; // Actualizar el índice del último mensaje mostrado
-                  
-                  const message = messages[randomIndex];
-                  console.log(message);
-
-                  // Actualizar el contenido del modal
-                  document.getElementById('nightModalLabel').textContent = message.modalTitle;
-                  document.getElementById('textom1').innerHTML = message.mainText;
-                  document.getElementById('button-t').textContent = message.buttonText;
-                  document.getElementById('button-t').setAttribute('data-bs-title', message.popoverTitle);
-                  document.getElementById('button-t').setAttribute('data-bs-content', message.popoverContent);
-
-                  // Inicializar Popover
-                  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-                  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-                      return new bootstrap.Popover(popoverTriggerEl);
-                  });
-
-                  // Actualizar las imágenes del carrusel
-                  for (let i = 0; i < message.carouselImages.length; i++) {
-                      document.getElementById(`img-${i+1}`).src = message.carouselImages[i].src;
-                      document.getElementById(`img-${i+1}`).alt = message.carouselImages[i].alt;
-                  }
-
-                  document.getElementById('fin-mod').innerHTML = message.footerText;
-              })
-              .catch(error => console.error('Error loading JSON:', error));
-      }
-
-      // Añadir evento para cargar el mensaje aleatorio cuando se abre el modal
-      var nightModal = document.getElementById('nightModal');
-      nightModal.addEventListener('show.bs.modal', loadRandomNightMessage);
-  });
-</script>
+    <script src="./scripts/home/fondo.js"></script>
+    <script src="./scripts/home/morning.js"> </script>
+    <script src="./scripts/home/noon.js"></script>
+    <script src="./scripts/home/night.js"></script>
 
 
     
