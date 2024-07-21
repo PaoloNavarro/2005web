@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let previousIndex = null;
 
     function loadRandomMorningMessage() {
-      fetch('../../morning.json')
+      fetch('../../datos/morning.json')
         .then(response => response.json())
         .then(data => {
           const messages = data.morningMessages;
