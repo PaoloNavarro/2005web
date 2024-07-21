@@ -1,11 +1,9 @@
 .micotendor{
-    background-repeat: repeat; /* Optional: Set how the image repeats (repeat, no-repeat, etc.) */
     background-size: cover; /* Optional: Scale the image to cover the card */
-    background-position: center; /* Optional: Position the image within the card */
 }
 
 .background-1 {
-    background-image: url('../image/back.jpg');
+    background-image: url('https://img.freepik.com/psd-gratis/fondo-rosado-textura-corazones_314999-2206.jpg?t=st=1721586485~exp=1721590085~hmac=7937da8a964ec43a2ffb402a0c6d406ff6769d875f0a372d0b8e3fc00495ebdf&w=1380');
 }
 
 .background-2 {
@@ -15,6 +13,16 @@
 .background-3 {
     background-image: url('../image/back3.avif');
 }
+.background-4 {
+    background-image: url('https://img.freepik.com/vector-gratis/coleccion-dibujitos-amor_23-2147502214.jpg?t=st=1721586657~exp=1721590257~hmac=19406bab7ad01753252e010c4744472740855d002df78d7876a8c83e8a1b095e&w=1380');
+}
+.background-5 {
+    background-image: url('https://img.freepik.com/vector-gratis/ilustracion-hilo-rojo-dibujado-mano_23-2149988109.jpg?t=st=1721586765~exp=1721590365~hmac=0d4eff75c21cb8dcb66f7477871e69366745ad98dd142eb21370cd320edbd365&w=1380');
+}
+.background-6 {
+    background-image: url('https://img.freepik.com/vector-gratis/conjunto-garabatos-dia-san-valentin_125540-1795.jpg?t=st=1721586910~exp=1721590510~hmac=5e0543766b9737d4c7e5dbba27da6e827184ee4c6df5a4d85300ed240331fd6c&w=2000');
+}
+
 .centrado{
     display: flex;
     justify-content: center;
