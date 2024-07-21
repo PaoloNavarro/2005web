@@ -161,3 +161,33 @@
 .carousel-control-next-icon:hover {
     background-color: #555; /* Cambia este color al que desees para el hover */
 }
+
+
+
+.post-card {
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    box-shadow: 10px 10px 5px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.post-card h3 {
+    margin: 0 0 10px;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}

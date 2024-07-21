@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="icon" type="image/ico" sizes="32x32" href="iconweb.ico">
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
-</head>
-<body id="container"  class="micotendor">
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"></head>
+<body id="container" class="micotendor">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <a class="navbar-brand" href="./index.html">Web 2005 💖</a>
@@ -20,37 +20,48 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                <a class="nav-link active" aria-current="page" href="./index.html">Inicio🌟</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./post.html">Blog(en construccion)</a>
+                <a class="nav-link" href="./post.html">Notitas💖</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Proximante</a>
               </li>
-             
             </ul>
           </div>
         </nav>
-      
-          <hr>
-      </header>
-      <main>
+        <hr>
+    </header>
+    <main>
         <div class="centrado">
             <div class="card-styles"> 
                 <div class="card-body">
                     <div class="row d-flex">
-                        <input class="form-control" type="text" id="blogInput" placeholder="Escribe aquí tu nota">
-                        <button class="btn btn-1 mt-2 mb-3" onclick="addPost()">Agregar Post</button>
+                      <div class="row text-center pb-3">
+                        <h4>Aca puedes dejar una notita <br>
+                          para lo que desees en el dia:</h4>
+                      </div>
+                    
+                        <input class="form-control" type="text" id="blogInput" placeholder="Escribe aquí tu Nota">
+                        <select class="form-control mt-2" id="selectName">
+                          <option value="">Seleccione un usuario</option>
+                          <!-- Agrega aquí tus opciones de usuarios -->
+                          <option value="Paolo">Paolo 👓 </option>
+                          <option value="Viriginia">Virginia (2005)</option>
+                        </select>
+                        <button class="btn btn-1 mt-2 mb-3" onclick="addPost()">Agregar nota</button>
                     </div>
                     <div id="postsContainer"></div>
+                    <div id="paginationControls"></div>
+
                 </div>
             </div>
         </div>
     </main>
 
-
     <!-- Supabase SDK -->
+    <script src="./scripts/home/fondo.js"></script>
 
     <!-- Configuración de Supabase -->
     <script src="./supabase-config.js"></script>
