@@ -213,3 +213,36 @@
     background-color: #c82333;
 }
 
+/* Estilo personalizado para Toastify */
+.toast-custom {
+    background: #333; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px 20px; /* Espaciado interno */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    font-size: 16px; /* Tamaño de fuente */
+    font-family: Arial, sans-serif; /* Familia de fuente */
+    text-align: center; /* Texto centrado */
+    max-width: 400px; /* Ancho máximo */
+    margin: auto; /* Centrado horizontal */
+}
+
+.toast-custom:before {
+    content: ""; /* Espacio para el icono si se necesita */
+}
+
+.toast-custom .toastify-content {
+    display: inline-block; /* Mostrar el contenido en línea */
+}
+
+.toast-custom .toastify-content img {
+    vertical-align: middle; /* Alinear verticalmente el icono si se usa */
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+}
+
+/* Ajuste para el toast al centrarse en la pantalla */
+.Toastify {
+    left: 50% !important; /* Centrar horizontalmente */
+    transform: translateX(-50%); /* Ajuste fino del centrado */
+}
+
