@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let lastRandomIndex = -1; // Variable para almacenar el índice del último mensaje mostrado
 
     function loadRandomNightMessage() {
-        fetch('../datos/night.json')
+        fetch('../../datos/night.json')
             .then(response => response.json())
             .then(data => {
                 // Seleccionar un mensaje aleatorio que no sea el mismo que el anterior

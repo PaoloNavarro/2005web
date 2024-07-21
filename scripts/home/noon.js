@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let lastNoonIndex = -1; // Variable para almacenar el índice del último mensaje mostrado
 
     function loadRandomNoonMessage() {
-        fetch('../datos/medio.json')
+        fetch('../../medio.json')
             .then(response => response.json())
             .then(data => {
                 const messages = data.noonMessages;
