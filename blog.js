@@ -90,17 +90,35 @@ async function loadPosts(page = 1) {
 }
 
 async function deletePost(postId) {
-    const { data, error } = await _supabase
-        .from('posts')
-        .delete()
-        .eq('id', postId);
+    // Muestra un mensaje de confirmación antes de eliminar la entrada
+    const result = await Swal.fire({
+        title: '¿VAMOS A BORRAR🤔?',
+        text: "¡Esta acción no se puede deshacer!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, borremos esto',
+        cancelButtonText: 'No, mejor que quede la nota'
+    });
 
-    if (error) {
-        console.error('Error al eliminar la entrada:', error);
-    } else {
-        loadPosts(currentPage);
+    if (result.isConfirmed) {
+        // Si el usuario confirma, procede a eliminar la entrada
+        const { data, error } = await _supabase
+            .from('posts')
+            .delete()
+            .eq('id', postId);
+
+        if (error) {
+            console.error('Error al eliminar la entrada:', error);
+            Swal.fire('Error', 'No se pudo eliminar la nota', 'error');
+        } else {
+            loadPosts(currentPage);
+            Swal.fire('Eliminado', 'La nota ha sido eliminada.', 'success');
+        }
     }
 }
+
 
 function getRandomColorFromList() {
     const colors = ['#a5d8ea', '#DBEDCC', '#efbfd2', '#a1beff'];
@@ -115,12 +133,18 @@ function createPostCard(post) {
     const backgroundColor = getRandomColorFromList();
     card.style.backgroundColor = backgroundColor;
     card.innerHTML = `
-        <h3>${post.content}</h3>
-        <p>Escrito por: ${post.name}</p>
-        <p>Fecha: ${createdAt}</p>
-        <button class="btn delete-btn" onclick="deletePost(${post.id})">
-            <i class="bi bi-backspace-fill"></i>
-        </button>
+        <div class="row text-center">
+            <h3>${post.content}</h3>
+            <p>Escrito por: ${post.name}</p>
+            <p>Fecha: ${createdAt}</p>
+            <div class="text-center d-flex justify-content-center alings-item-center">
+             <button class="btn delete-btn " onclick="deletePost(${post.id})">
+                <i class="bi bi-backspace-fill"></i>
+            </button>
+            </div>
+           
+        <div>
+       
     `;
     postsContainer.appendChild(card);
 }
