@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase con HTML y JS</title>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>Insertar Datos en Supabase</h1>
+    <button id="insert-data">Insertar Datos</button>
+    <pre id="result"></pre>
+
+    <script src="./supabase-config.js"></script>
+
+    <script>
+
+
+        const data = [
+            {
+                "modalTitle": "En las mañanas☀️",
+                "headerText": "Hoy es un nuevo día🖼️\nDonde hay mucho por aprender 😁\n😆 Te mando la mejores energías el día de hoy🙌🏻\nTu puedes con cualquier reto!!!\n✨ Eres increíble no lo olvides\n💞 Se te aprecia mucho!!!",
+                "accordionTitle": "Esta vez un mensaje menos enojado",
+                "messages": [
+                    {
+                        "id": "f1-morning",
+                        "text": "2005 sos increíble no permitas que nadie te haga creer lo contrario"
+                    },
+                    {
+                        "id": "f2-morning",
+                        "text": "Te regalo una flor de mañana para recordarte que todos los días merecemos ser queridos y hoy te queremos mucho."
+                    },
+                    {
+                        "id": "f3-morning",
+                        "text": "NOTA: Aunque te gusten de 30, sos una muy buena persona. Vas por el camino correcto."
+                    }
+                ],
+                "imageModal": {
+                    "src": "./image/morning/flork-m.jpg",
+                    "alt": "Imagen de motivación matutina"
+                },
+                "imageAcordion": {
+                    "src": "./image/morning/flork-m2.jpg",
+                    "alt": "Imagen de motivación matutina"
+                }
+            },
+            // Otros objetos aquí...
+        ];
+
+        async function insertData() {
+            for (const item of data) {
+                const { error } = await _supabase
+                    .from('morning')
+                    .insert([{
+                        modalTitle: item.modalTitle,
+                        headerText: item.headerText,
+                        accordionTitle: item.accordionTitle,
+                        messages: item.messages,
+                        imageModal: item.imageModal,
+                        imageAcordion: item.imageAcordion
+                    }]);
+
+                if (error) {
+                    console.error('Error al insertar datos:', error);
+                    document.getElementById('result').innerText = 'Error al insertar datos.';
+                    return;
+                }
+            }
+            document.getElementById('result').innerText = 'Datos insertados con éxito.';
+        }
+
+        document.getElementById('insert-data').addEventListener('click', insertData);
+    </script>
+</body>
+</html>
