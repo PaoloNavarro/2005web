@@ -1,5 +1,7 @@
 .micotendor{
+    background-repeat: repeat; /* Optional: Set how the image repeats (repeat, no-repeat, etc.) */
     background-size: cover; /* Optional: Scale the image to cover the card */
+    background-position: center; /* Optional: Position the image within the card */ /* Optional: Scale the image to cover the card */
 }
 
 .background-1 {
