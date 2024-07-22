@@ -30,6 +30,23 @@ async function addPost() {
     const postContent = blogInput.value;
     const authorName = selectName.value;
 
+
+    // Determinar el correo y nombre del destinatario según el autor
+    let recipientEmail;
+    let recipientName;
+    if (authorName === 'Paolo') {
+        recipientEmail = 'moralesirma036@gmail.com';
+        recipientName = 'Virginia';
+    } else if (authorName === 'Virginia') {
+        recipientEmail = 'navarropaolo2020@gmail.com';
+        recipientName = 'Paolo';
+    } else {
+        // Manejar otros casos si es necesario
+        recipientEmail = 'default@example.com';
+        recipientName = 'Default';
+    }
+
+
     if (postContent.trim() === '' || authorName === '') return;
 
     const now = DateTime.now().setZone('America/El_Salvador').toISO();
@@ -45,6 +62,8 @@ async function addPost() {
         selectName.value = '';
         loadPosts(currentPage);
         showNotification('Nueva Nota Agregada', `Título: ${postContent}`);
+        sendEmailNotification(postContent, authorName, recipientName, recipientEmail);
+
     }
 }
 
@@ -55,6 +74,22 @@ function showNotification(title, body) {
             icon: 'iconweb.ico' // Opcional: agrega un ícono para la notificación
         });
     }
+}
+
+function sendEmailNotification(content, fromName, toName, toEmail) {
+    const templateParams = {
+        content: content,
+        from_name: fromName,
+        to_name: toName,
+        to_email: toEmail // Agrega el destinatario aquí
+    };
+
+    emailjs.send('service_c2dcsop', 'template_49q8zd1', templateParams)
+        .then((response) => {
+            console.log('Correo enviado exitosamente!', response.status, response.text);
+        }, (error) => {
+            console.error('Error al enviar el correo:', error);
+        });
 }
 
 async function loadPosts(page = 1) {
@@ -119,7 +154,7 @@ async function deletePost(postId) {
     }
 }
 
-
+ 
 function getRandomColorFromList() {
     const colors = ['#a5d8ea', '#DBEDCC', '#efbfd2', '#a1beff'];
     const randomIndex = Math.floor(Math.random() * colors.length);

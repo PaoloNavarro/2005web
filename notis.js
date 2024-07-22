@@ -1,8 +1,9 @@
 const { DateTime } = luxon;
 
 document.addEventListener('DOMContentLoaded', () => {
+    checkEventsForCurrentMonth ();
     checkEventsForToday();
-    setTimeout(checkNotesForToday, 3000); // Mostrar notas después de 3 segundos para dar tiempo a mostrar recordatorios
+    setTimeout(checkNotesForToday, 3000);
 });
 
 async function checkEventsForToday() {
@@ -103,4 +104,111 @@ async function checkNotesForToday() {
         className: "toast-custom", // Clase personalizada para el estilo
         escapeMarkup: false // Permitir HTML en el texto
     }).showToast();
+}
+
+
+async function checkEventsForCurrentMonth() {
+    const now = DateTime.now().setZone('America/El_Salvador'); // Ajusta la zona horaria si es necesario
+    const startOfMonth = now.startOf('month').toISO();
+    const endOfMonth = now.endOf('month').toISO();
+    const startOfNextMonth = now.plus({ months: 1 }).startOf('month').toISO();
+    const endOfNextMonth = now.plus({ months: 1 }).endOf('month').toISO();
+    const startOfWeek = now.startOf('week').toISO();
+    const endOfWeek = now.endOf('week').toISO();
+    const startOfDay = now.startOf('day').toISO();
+    const endOfDay = now.endOf('day').toISO();
+
+    // Obtener eventos del mes actual y del próximo mes
+    const { data: events, error } = await _supabase
+        .from('events')
+        .select('*')
+        .or(`date_time.gte.${startOfMonth},date_time.lte.${endOfNextMonth}`);
+
+    if (error) {
+        console.error('Error al obtener eventos:', error);
+        return;
+    }
+
+    // Filtrar eventos según proximidad
+    const eventsToNotify = events.filter(event => {
+        const eventDate = DateTime.fromISO(event.date_time);
+        const isToday = eventDate >= now.startOf('day') && eventDate <= now.endOf('day');
+        const isThisWeek = eventDate >= now.startOf('week') && eventDate <= now.endOf('week');
+        const isThisMonth = eventDate >= now.startOf('month') && eventDate <= now.endOf('month');
+        const isNextMonth = eventDate >= now.plus({ months: 1 }).startOf('month') && eventDate <= now.plus({ months: 1 }).endOf('month');
+    
+        if (event.email_sent === 0) {
+            if (isToday) return true;
+            if (isThisWeek) return true;
+            if (isThisMonth) return true;
+            if (isNextMonth) return true;
+        } else if (event.email_sent === 1 && isNextMonth) {
+            return true;
+        } else if (event.email_sent === 2 && isThisMonth) {
+            return true;
+        } else if (event.email_sent === 3 && isThisWeek) {
+            return true;
+        } else if (event.email_sent === 4 && isToday) {
+            return true;
+        } else if (event.email_sent === 5 && isToday) {
+            return true;
+        }
+    
+        return false;
+    });
+    console.log('Events to notify:', eventsToNotify);
+
+    // Enviar notificaciones y actualizar la columna email_sent
+    for (const event of eventsToNotify) {
+        const proximity = getProximity(event.date_time);
+        // Enviar correos a ambos destinatarios
+        await sendEmailReminders(event, proximity);
+
+        // Actualizar el estado del correo enviado
+        const { error: updateError } = await _supabase
+            .from('events')
+            .update({ email_sent: proximity })
+            .match({ id: event.id });
+
+        if (updateError) {
+            console.error('Error al actualizar el estado del evento:', updateError);
+        }
+    }
+}
+
+function getProximity(eventDate) {
+    const now = DateTime.now();
+    const event = DateTime.fromISO(eventDate);
+
+    if (event.hasSame(now, 'day')) return 5;
+    if (event.hasSame(now, 'week')) return 4;
+    if (event.hasSame(now, 'month')) return 3;
+    if (event.hasSame(now.plus({ months: 1 }).startOf('month'), 'month')) return 2;
+    if (event.hasSame(now.plus({ months: 1 }).startOf('month'), 'month')) return 1;
+
+    return 0;
+}
+
+async function sendEmailReminders(event, proximity) {
+    const recipients = [
+        { name: 'Paolo', email: 'piopiopaolo12@gmail.com' },
+        { name: 'Virginia', email: 'moralesirma036@gmail.com@gmail.com' }
+    ];
+
+    for (const recipient of recipients) {
+        const templateParams = {
+            event_title: event.title,
+            event_date: DateTime.fromISO(event.date_time).toLocaleString(DateTime.DATETIME_MED),
+            to_name: recipient.name,
+            to_email: recipient.email,
+            proximity: proximity
+        };
+
+        await emailjs.send('service_c2dcsop', 'template_o789stq', templateParams)
+            .then((response) => {
+                console.log(`Correo enviado exitosamente para evento ${event.title} a ${recipient.name}`, response.status, response.text);
+            }, (error) => {
+                console.error('Error al enviar el correo:', error);
+            });
+    }
 }
