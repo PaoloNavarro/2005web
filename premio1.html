@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarjeta de Identificación</title>
     <link rel="stylesheet" href="./css/cards.css">
+
 </head>
 <body>
     <div class="container">
@@ -13,13 +14,13 @@
                 <div class="card-front">
                     <h2>Licencia para un gallito de pela🐓</h2>
                     <p><strong>Nombre:</strong> Virginia(2005!)</p>
-                    <p><strong>ID:</strong>23082023</p>
+                    <p><strong>ID:</strong> 23082023</p>
                     <p><strong>Válida hasta:</strong> Las mujeres dejen de ser mentirosas</p>
                 </div>
                 <div class="card-back">
                     <h2>Información Adicional</h2>
-                    <p>Esta licencia es valida para hacer pelea.</p>
-                    <p><strong>Emitida por:</strong>El hombre!! </p>
+                    <p>Esta licencia es válida para hacer pelea.</p>
+                    <p><strong>Emitida por:</strong> El hombre!!</p>
                     <p><strong>Fecha de emisión:</strong> 07/2024</p>
                 </div>
             </div>
@@ -30,7 +31,8 @@
             this.querySelector('.card-inner').classList.toggle('is-flipped');
         });
 
-        document.querySelector('.card').addEventListener('touchstart', function() {
+        document.querySelector('.card').addEventListener('touchstart', function(event) {
+            event.stopPropagation();
             this.querySelector('.card-inner').classList.toggle('is-flipped');
         });
     </script>

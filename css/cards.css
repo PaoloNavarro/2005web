@@ -8,14 +8,13 @@ body {
     font-family: Arial, sans-serif;
 }
 
+.container {
+    perspective: 1000px;
+}
+
 .card {
     width: 300px;
     height: 200px;
-    perspective: 1000px;
-}
-.card-especial {
-    width: 300px;
-    height: 1200px;
     perspective: 1000px;
 }
 
@@ -27,12 +26,10 @@ body {
     position: relative;
 }
 
-.card:hover .card-inner {
+.is-flipped {
     transform: rotateY(180deg);
 }
-.card-especial:hover .card-inner {
-    transform: rotateY(180deg);
-}
+
 .card-front, .card-back {
     position: absolute;
     width: 100%;

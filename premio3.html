@@ -30,7 +30,8 @@
             this.querySelector('.card-inner').classList.toggle('is-flipped');
         });
 
-        document.querySelector('.card').addEventListener('touchstart', function() {
+        document.querySelector('.card').addEventListener('touchstart', function(event) {
+            event.stopPropagation();
             this.querySelector('.card-inner').classList.toggle('is-flipped');
         });
     </script>
