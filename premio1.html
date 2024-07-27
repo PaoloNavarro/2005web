@@ -25,6 +25,14 @@
             </div>
         </div>
     </div>
+    <script>
+        document.querySelector('.card').addEventListener('click', function() {
+            this.querySelector('.card-inner').classList.toggle('is-flipped');
+        });
 
+        document.querySelector('.card').addEventListener('touchstart', function() {
+            this.querySelector('.card-inner').classList.toggle('is-flipped');
+        });
+    </script>
 </body>
 </html>

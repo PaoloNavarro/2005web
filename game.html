@@ -101,7 +101,7 @@ let allQuestions = [
             { text: 'Uno de 30 👴🏻', score: 5, explanation: '5 puntos por que respetamos pero 30!!! . 😱' },
             { text: 'Colajeno puro 🧑🏻‍🦱', score: 10, explanation: '10 Con tue edad seria un menor y eso no.🔞' },
             { text: 'No importa la edad👀', score: 30, explanation: '30 Importa como sea la persona, pero tambien el fisico!!!👀' },
-            { text: 'Solo estamos bien🌟', score: 40, explanation: 'No necesitamos a nadie para ser increibles.💖' },
+            { text: 'Solo estamos bien🌟', score: 50, explanation: 'No necesitamos a nadie para ser increibles.💖' },
         ]
     },
     {
@@ -109,6 +109,13 @@ let allQuestions = [
         options: [
             { text: 'Si✅', score: 50, explanation: '50 siempre y cuando el sueño no te quite la vida' },
             { text: 'No💀', score: 25, explanation: '25 Hay que tener mas ambicion' },
+        ]
+    },
+    {
+        text: '¿Vamos por una piza si o no.?(no puedo ver tus respuestas JAJAJ)',
+        options: [
+            { text: 'Si✅', score: 100, explanation: '100 puntos pero avisame JAJAJ' },
+            { text: 'No💀', score: 25, explanation: '0 puntos Tu conciencia te dira todo' },
         ]
     },
     
@@ -256,10 +263,12 @@ function showFinalScore() {
 
     // Ejemplo de premios
     const items = [
-        { name: 'Premio 1', cost: 20, imageUrl: './image/qr1.png' },
-        { name: 'Premio 2', cost: 50, imageUrl: './image/qr1.png' },
-        { name: 'Premio 3', cost: 100, imageUrl: './image/qr1.png' },
-        { name: 'Premio 4', cost: 200, imageUrl: './image/qr1.png' }
+        { name: 'Es para un dia dificil ', cost: 20, imageUrl: './image/qr5.png' },
+        { name: 'Sirve para peleas ', cost: 50, imageUrl: './image/qr1.png' },
+        { name: 'Es un detallito', cost: 75, imageUrl: './image/qr3.png' },
+        { name: 'Podria ser una broma', cost: 100, imageUrl: './image/qr4.png' },
+        { name: 'Es otro detallito', cost: 150, imageUrl: './image/qr2.png' },
+        { name: 'Es una sopresa', cost: 200, imageUrl: './image/qr6.png' },
     ];
 
     items.forEach(item => {
