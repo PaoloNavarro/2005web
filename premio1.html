@@ -28,11 +28,17 @@
     </div>
     <script>
         document.querySelector('.card').addEventListener('click', function() {
-            this.querySelector('.card-inner').classList.toggle('is-flipped');
+            const cardInner = this.querySelector('.card-inner');
+            cardInner.classList.toggle('is-flipped');
         });
 
         document.querySelector('.card').addEventListener('touchstart', function(event) {
-            this.querySelector('.card-inner').classList.toggle('is-flipped');
+            event.stopPropagation();
+        });
+
+        document.querySelector('.card').addEventListener('touchend', function() {
+            const cardInner = this.querySelector('.card-inner');
+            cardInner.classList.toggle('is-flipped');
         });
     </script>
 </body>

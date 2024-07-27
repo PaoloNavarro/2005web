@@ -24,13 +24,16 @@
         </div>
     </div>
     <script>
-        const card = document.querySelector('.card');
-        card.addEventListener('click', function() {
+        document.querySelector('.card').addEventListener('click', function() {
             const cardInner = this.querySelector('.card-inner');
             cardInner.classList.toggle('is-flipped');
         });
 
-        card.addEventListener('touchstart', function() {
+        document.querySelector('.card').addEventListener('touchstart', function(event) {
+            event.stopPropagation();
+        });
+
+        document.querySelector('.card').addEventListener('touchend', function() {
             const cardInner = this.querySelector('.card-inner');
             cardInner.classList.toggle('is-flipped');
         });
