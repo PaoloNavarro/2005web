@@ -26,13 +26,15 @@
         </div>
     </div>
     <script>
-        document.querySelector('.card').addEventListener('click', function() {
-            this.querySelector('.card-inner').classList.toggle('is-flipped');
+        const card = document.querySelector('.card');
+        card.addEventListener('click', function() {
+            const cardInner = this.querySelector('.card-inner');
+            cardInner.classList.toggle('is-flipped');
         });
 
-        document.querySelector('.card').addEventListener('touchstart', function(event) {
-            event.stopPropagation();
-            this.querySelector('.card-inner').classList.toggle('is-flipped');
+        card.addEventListener('touchstart', function() {
+            const cardInner = this.querySelector('.card-inner');
+            cardInner.classList.toggle('is-flipped');
         });
     </script>
 </body>
