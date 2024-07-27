@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Animada</title>
+    <link rel="stylesheet" href="./css/game.css">
+</head>
+<body>
+    <div class="card" id="initial-card" onclick="toggleCard()">
+        <div class="card-front">
+            <p>Vamos a jugar un juego</p>
+        </div>
+        <div class="card-back">
+            <button class="play-button" onclick="startGame(event)">
+                <img src="./image/play.png" alt="Play Icon" class="play-icon">
+                Jugar
+            </button>
+        </div>
+    </div>
+
+    <div class="card hidden" id="countdown-card">
+        <div class="card-content">
+            <p id="countdown-text">3</p>
+        </div>
+    </div>
+    <div class="card-game hidden" id="question-card">
+        <div class="card-content">
+            <p id="question-text"></p>
+            <div id="options-container"></div>
+        </div>
+    </div>
+    <div class="card hidden" id="explanation-card">
+        <div class="card-content">
+            <p id="explanation-text"></p>
+            <button class="next-button" onclick="nextQuestion()">Siguiente</button>
+        </div>
+    </div>
+
+    <div class="card-game hidden" id="store-card">
+        <div class="card-content">
+            <p id="final-score-text"></p>
+            <p>Aquí puedes comprar premios con tus puntos:</p>
+            <div id="store-items">
+                <!-- Aquí se agregarán los elementos de la tienda -->
+            </div>
+            <button class="play-again-button" onclick="playAgain()">Volver a Jugar</button>
+            
+        </div>
+    </div>
+    <div id="purchase-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <p id="modal-message"></p>
+            <img id="modal-image" src="" alt="QR Code">
+            <button onclick="confirmPurchase()">Confirmar Compra</button>
+            <button onclick="closeModal()">Cancelar</button>
+        </div>
+    </div>
+    <div id="qr-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeQrModal()">&times;</span>
+            <p>Tu compra ha sido confirmada. Aquí está tu código QR:</p>
+            <img id="qr-image" src="" alt="Código QR">
+        </div>
+    </div>
+    
+
+        <!-- Audio elements -->
+        <audio id="countdown-sound" src="countdown.mp3"></audio>
+        <audio id="play-sound" src="play.mp3"></audio>
+        <audio id="start-sound" src="start.mp3"></audio>
+
+    <!-- <script src="script.js"></script> -->
+</body>
+</html>
+<script>
+let allQuestions = [
+    {
+        text: '¿Que da más miedo?',
+        options: [
+            { text: 'Una gallina', score: 50, explanation: '50 puntitos por que aqui no minimizamos nada. 🌟 ' },
+            { text: 'Una zarigüeya', score: 50, explanation: '50 puntitos por que me tuviste consideración 💖.' },
+            { text: 'Una mujer', score: 40, explanation: '40 punto por la honestidad pero como no vas a presionar esto mira 😘 te dejo un besito' },
+            { text: '😂 zarigüeya No!', score: 0, explanation: '0 puntos por ser mala.🙄' },
+
+        ]
+    },
+    {
+        text: '¿Es mejor?',
+        options: [
+            { text: 'Playa 🌊', score: 50, explanation: '50 Puntitos pero me enojo, no me llevas!!!🙄 ' },
+            { text: 'Caminata🏃🏻‍♂️ ', score: 50, explanation: '50  puntitos Pero no pelees con señoras!!! cuando camines.' },
+            { text: 'Subir un volcansito🏔️', score: 50, explanation: '50 puntito  yo creeria que no la logro JAJAJ.' },
+
+        ]
+    },
+    {
+        text: '¿Que es mejor?',
+        options: [
+            { text: 'Uno de 30 👴🏻', score: 5, explanation: '5 puntos por que respetamos pero 30!!! . 😱' },
+            { text: 'Colajeno puro 🧑🏻‍🦱', score: 10, explanation: '10 Con tue edad seria un menor y eso no.🔞' },
+            { text: 'No importa la edad👀', score: 30, explanation: '30 Importa como sea la persona, pero tambien el fisico!!!👀' },
+            { text: 'Solo estamos bien🌟', score: 40, explanation: 'No necesitamos a nadie para ser increibles.💖' },
+        ]
+    },
+    {
+        text: '¿Es bueno soñar en grande.?',
+        options: [
+            { text: 'Si✅', score: 50, explanation: '50 siempre y cuando el sueño no te quite la vida' },
+            { text: 'No💀', score: 25, explanation: '25 Hay que tener mas ambicion' },
+        ]
+    },
+    
+   
+    
+    // Más preguntas aquí
+];
+
+let questions = [];
+let currentQuestionIndex = 0;
+let totalScore = 0;
+let selectedItem = null; // Para almacenar el premio seleccionado
+
+
+function toggleCard() {
+    const card = document.querySelector('.card');
+    card.classList.toggle('is-flipped');
+}
+function startGame(event) {
+    event.stopPropagation();
+
+    // Reproducir sonido de play
+    const playSound = document.getElementById('play-sound');
+    playSound.play();
+    
+    const initialCard = document.getElementById('initial-card');
+    const countdownCard = document.getElementById('countdown-card');
+    const countdownText = document.getElementById('countdown-text');
+    
+    // Ocultar la carta inicial
+    initialCard.style.opacity = '0';
+    setTimeout(() => {
+        initialCard.classList.add('hidden');
+        
+        // Mostrar la carta de cuenta regresiva
+        countdownCard.classList.remove('hidden');
+        
+        // Iniciar cuenta regresiva
+        let countdown = 3;  // Ajustado a 3 segundos
+        countdownText.textContent = countdown;
+        
+        const countdownSound = document.getElementById('countdown-sound');
+        countdownSound.play();
+        
+        const countdownInterval = setInterval(() => {
+            countdown -= 1;
+            if (countdown > 0) {
+                countdownText.textContent = countdown;
+                countdownSound.currentTime = 0; // Reiniciar sonido
+                countdownSound.play();
+            } else {
+                clearInterval(countdownInterval);
+                countdownSound.pause(); // Detener sonido
+                countdownSound.currentTime = 0; // Reiniciar sonido
+                countdownText.textContent = '¡Lista! ¡Vamos!';
+                countdownText.style.fontSize = '2.5rem';
+
+                const startSound = document.getElementById('start-sound');
+                startSound.play();
+                
+                setTimeout(() => {
+                    countdownCard.style.opacity = '0';
+                    setTimeout(() => {
+                        countdownCard.classList.add('hidden');
+                        startNewGame();
+                    }, 600); // Tiempo para la animación de desaparición
+                }, 1000); // Tiempo para mostrar "¡Lista! ¡Vamos!"
+            }
+        }, 1000);
+    }, 600); // Tiempo suficiente para que la animación de desaparición se complete
+}
+
+function startNewGame() {
+    // Seleccionar aleatoriamente 3 preguntas
+    questions = selectRandomQuestions(allQuestions, 3);
+    currentQuestionIndex = 0;
+    totalScore = 0;
+    showQuestionCard();
+}
+
+function selectRandomQuestions(questions, numberOfQuestions) {
+    let shuffled = questions.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, numberOfQuestions);
+}
+
+function showQuestionCard() {
+    const questionCard = document.getElementById('question-card');
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+
+    if (currentQuestionIndex < questions.length) {
+        const currentQuestion = questions[currentQuestionIndex];
+        questionText.textContent = currentQuestion.text;
+        optionsContainer.innerHTML = '';
+        currentQuestion.options.forEach(option => {
+            const button = document.createElement('button');
+            button.className = 'option-button';
+            button.textContent = option.text;
+            button.onclick = () => selectOption(option);
+            optionsContainer.appendChild(button);
+        });
+
+        questionCard.classList.remove('hidden');
+        questionCard.style.opacity = '1';
+    } else {
+        showFinalScore();
+    }
+}
+
+function selectOption(option) {
+    totalScore += option.score;
+    currentQuestionIndex += 1;
+
+    const explanationCard = document.getElementById('explanation-card');
+    const explanationText = document.getElementById('explanation-text');
+
+    explanationText.textContent = `Ganaste ${option.score} puntos. ${option.explanation}`;
+
+    const questionCard = document.getElementById('question-card');
+    questionCard.style.opacity = '0';
+    setTimeout(() => {
+        questionCard.classList.add('hidden');
+        explanationCard.classList.remove('hidden');
+        explanationCard.style.opacity = '1';
+    }, 600);
+}
+
+function nextQuestion() {
+    const explanationCard = document.getElementById('explanation-card');
+    explanationCard.style.opacity = '0';
+    setTimeout(() => {
+        explanationCard.classList.add('hidden');
+        showQuestionCard();
+    }, 600);
+}
+
+function showFinalScore() {
+    const questionCard = document.getElementById('question-card');
+    const storeCard = document.getElementById('store-card');
+    const finalScoreText = document.getElementById('final-score-text');
+    const storeItems = document.getElementById('store-items');
+
+    // Limpia la carta de tienda antes de llenarla
+    storeItems.innerHTML = '';
+
+    // Ejemplo de premios
+    const items = [
+        { name: 'Premio 1', cost: 20, imageUrl: 'qr1.png' },
+        { name: 'Premio 2', cost: 50, imageUrl: 'qr2.png' },
+        { name: 'Premio 3', cost: 100, imageUrl: 'qr3.png' },
+        { name: 'Premio 4', cost: 200, imageUrl: 'qr4.png' }
+    ];
+
+    items.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'store-item';
+        itemDiv.innerHTML = `
+            <img src="./image/gif.png" alt="Gift Icon">
+            <span>${item.name} - ${item.cost} puntos</span>
+            <button class="store-item-button" onclick="selectItem(${item.cost}, '${item.imageUrl}', '${item.name}')">Comprar</button>
+        `;
+        storeItems.appendChild(itemDiv);
+    });
+
+    questionCard.style.opacity = '0';
+    setTimeout(() => {
+        questionCard.classList.add('hidden');
+        finalScoreText.textContent = `Puntuación final: ${totalScore}`;
+        storeCard.classList.remove('hidden');
+        storeCard.style.opacity = '1';
+    }, 600);
+}
+
+
+function showModal(message, imageUrl) {
+    const modal = document.getElementById('purchase-modal');
+    const modalMessage = document.getElementById('modal-message');
+    const modalImage = document.getElementById('modal-image');
+
+    modalMessage.textContent = message;
+    modalImage.src = ''; // Inicialmente, la imagen está vacía
+
+    modal.classList.remove('hidden');
+    modal.style.display = 'flex'; // Asegúrate de mostrar el modal como un flexbox
+}
+
+function closeModal() {
+    const modal = document.getElementById('purchase-modal');
+    modal.classList.add('hidden');
+    modal.style.display = 'none'; // Asegúrate de ocultar el modal correctamente
+    selectedItem = null;
+}
+
+function showQrModal(qrImageUrl) {
+    const qrModal = document.getElementById('qr-modal');
+    const qrImage = document.getElementById('qr-image');
+
+    qrImage.src = qrImageUrl; // Establecer la imagen QR del premio comprado
+
+    qrModal.classList.remove('hidden');
+    qrModal.style.display = 'flex'; // Asegúrate de mostrar el modal como un flexbox
+}
+
+function closeQrModal() {
+    const qrModal = document.getElementById('qr-modal');
+    qrModal.classList.add('hidden');
+    qrModal.style.display = 'none'; // Asegúrate de ocultar el modal correctamente
+}
+
+function confirmPurchase() {
+    if (selectedItem) {
+        totalScore -= selectedItem.cost;
+        closeModal(); // Cerrar el modal de confirmación
+
+        // Mostrar el modal con el QR
+        showQrModal(selectedItem.imageUrl);
+
+        alert('Compra confirmada. ¡Disfruta tu premio!');
+    }
+}
+
+function selectItem(cost, imageUrl, name) {
+    if (totalScore >= cost) {
+        selectedItem = { cost, imageUrl, name };
+        showModal(`¿Quieres comprar "${name}" por ${cost} puntos?`, ''); // Pasar la imagen URL vacía aquí
+    } else {
+        alert('No tienes suficientes puntos para comprar este premio.');
+    }
+}
+
+function playAgain() {
+    const storeCard = document.getElementById('store-card');
+    
+    // Ocultar la tarjeta de la tienda con animación
+    storeCard.style.opacity = '0';
+    setTimeout(() => {
+        storeCard.classList.add('hidden');
+        startNewGame(); // Reiniciar el juego
+    }, 600); // Tiempo para la animación de desaparición
+}
+
+
+
+</script>
