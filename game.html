@@ -52,7 +52,7 @@
         <div class="modal-content">
             <span class="close-button" onclick="closeModal()">&times;</span>
             <p id="modal-message"></p>
-            <img id="modal-image" src="" alt="QR Code">
+            <img id="modal-image" src="" alt="QR Code" class="hidden">
             <button onclick="confirmPurchase()">Confirmar Compra</button>
             <button onclick="closeModal()">Cancelar</button>
         </div>
@@ -256,10 +256,10 @@ function showFinalScore() {
 
     // Ejemplo de premios
     const items = [
-        { name: 'Premio 1', cost: 20, imageUrl: 'qr1.png' },
-        { name: 'Premio 2', cost: 50, imageUrl: 'qr2.png' },
-        { name: 'Premio 3', cost: 100, imageUrl: 'qr3.png' },
-        { name: 'Premio 4', cost: 200, imageUrl: 'qr4.png' }
+        { name: 'Premio 1', cost: 20, imageUrl: './image/qr1.png' },
+        { name: 'Premio 2', cost: 50, imageUrl: './image/qr1.png' },
+        { name: 'Premio 3', cost: 100, imageUrl: './image/qr1.png' },
+        { name: 'Premio 4', cost: 200, imageUrl: './image/qr1.png' }
     ];
 
     items.forEach(item => {
@@ -320,24 +320,35 @@ function closeQrModal() {
 
 function confirmPurchase() {
     if (selectedItem) {
+        console.log('Selected item:', selectedItem); // Debugging
+        console.log('Selected item imageUrl:', selectedItem.imageUrl); // Debugging
+
         totalScore -= selectedItem.cost;
-        closeModal(); // Cerrar el modal de confirmación
+       
 
         // Mostrar el modal con el QR
         showQrModal(selectedItem.imageUrl);
+        closeModal(); // Cerrar el modal de confirmación
 
         alert('Compra confirmada. ¡Disfruta tu premio!');
+    } else {
+        alert('No se ha seleccionado ningún premio.');
     }
 }
+
+
 
 function selectItem(cost, imageUrl, name) {
     if (totalScore >= cost) {
         selectedItem = { cost, imageUrl, name };
-        showModal(`¿Quieres comprar "${name}" por ${cost} puntos?`, ''); // Pasar la imagen URL vacía aquí
+        console.log('Selected item:', selectedItem); // Debugging
+        showModal(`¿Quieres comprar "${name}" por ${cost} puntos?`, imageUrl); // Pasar la imagen URL correcta aquí
     } else {
         alert('No tienes suficientes puntos para comprar este premio.');
     }
 }
+
+
 
 function playAgain() {
     const storeCard = document.getElementById('store-card');
