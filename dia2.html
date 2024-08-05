@@ -216,9 +216,7 @@
             const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
 
-            // Actualizar el contenido del contador
-            document.getElementById('countdown').textContent =
-                `${hours}h ${minutes}m ${seconds}s`;
+            
 
             // Mostrar botón si es el 4 de agosto de 2024
             const today = new Date(elSalvadorTime);
