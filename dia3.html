@@ -175,17 +175,43 @@
             font-size: 2em;
             font-weight: bold;
         }
+
+        /* Estilo para el botón de regresar */
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #ff886a;
+            color: #fff;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #e07b5b;
+            transform: scale(1.05);
+        }
+
+        .back-button:active {
+            background-color: #d06a4e;
+        }
     </style>
 </head>
 <body>
     <div class="background-animation"></div>
 
     <div class="proximamente-card" id="proximamenteCard">
+        
         <div class="header">
             <h1>Disponible en:</h1>
         </div>
         <p class="show-Date" id="showDate">Disponible el: 06/08/2024</p>
         <div class="countdown" id="countdown"></div>
+        <button class="back-button" onclick="history.back()">👈🏻Regresar</button>
+
     </div>
 
     <div class="game-container" id="gameContainer">
