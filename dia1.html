@@ -67,6 +67,27 @@
             top: 0;
             left: 0;
         }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #ff886a;
+            color: #fff;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #e07b5b;
+            transform: scale(1.05);
+        }
+
+        .back-button:active {
+            background-color: #d06a4e;
+        }
     </style>
 </head>
 <body>
@@ -90,6 +111,8 @@
                 <h6>(Si te saqué una sonrisa, me debes un abrazo)</h6>
             </div>
             <canvas id="scratch-canvas"></canvas>
+            <button class="back-button" onclick="history.back()">👈🏻Regresar</button>
+
         </div>
     </div>
     <script>
