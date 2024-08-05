@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/ico" sizes="32x32" href="iconweb.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarjeta de Rascar</title>
     <style>
@@ -13,8 +14,8 @@
             height: 100vh;
             margin: 0;
             background: #f0f0f0;
-            background: linear-gradient(135deg, #ffffff, #e4e4e4); /* Degradado de colores suaves */
-            background-size: 100px 100px; /* Tamaño del patrón */
+            background: linear-gradient(135deg, #ffffff, #e4e4e4);
+            background-size: 100px 100px;
         }
 
         .scratch-card {
@@ -80,13 +81,13 @@
             Una de mis mayores fortunas es el instante en que decidí hablar contigo."
         </p>
         <p class="text-center" style="color: rgb(129, 129, 246);">
-            Raspa aqui abajo
+            Raspa aquí abajo
         </p>
         <h1>👇🏻👇🏻👇🏻👇🏻👇🏻</h1>
         <div class="scratch-area" id="scratch-area">
             <div class="scratch-text" style="margin-top: 10px;">
                 <h4>Me gustas mucho🥰</h4>
-                <h6>(Si te saque una sonrisa me debes una abrazo)</h6>
+                <h6>(Si te saqué una sonrisa, me debes un abrazo)</h6>
             </div>
             <canvas id="scratch-canvas"></canvas>
         </div>
@@ -120,6 +121,9 @@
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         let isDrawing = false;
+
+        // Cargar sonido
+        const scratchSound = new Audio('./scracth.mp3'); // Cambia la URL al archivo de sonido deseado
 
         function getMousePos(e) {
             const rect = canvas.getBoundingClientRect();
@@ -157,6 +161,13 @@
             ctx.stroke();
             ctx.beginPath();
             ctx.moveTo(pos.x, pos.y);
+
+            // Reproducir sonido
+            if (scratchSound.paused) {
+                scratchSound.play();
+            } else {
+                scratchSound.currentTime = 0;
+            }
         }
 
         canvas.addEventListener('mousedown', startDrawing);
