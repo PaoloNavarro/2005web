@@ -134,6 +134,24 @@
                 transform: translate(100vw, 100vh);
             }
         }
+        .countdown {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            color: #000;
+            font-size: 1.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown span {
+            display: block;
+            font-size: 2em;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -162,55 +180,39 @@
         </div>
 
         <p class="show-Date" id="showDate">Disponible el: 13/08/2024</p>
-        <button class="show-modal" id="showModal">¡Ver Mensaje!</button>
+        <div class="countdown" id="countdown"></div>
+
     </div>
 
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" id="modal">
-            <div class="cloud">
-                <div class="modal-header">¡🥰Te ganastes un cumplido💖!</div>
-                <div class="modal-content">La belleza, ese espléndido elixir que se manifiesta en un torbellino de subjetividades, se revela con una claridad inigualable en tu ser. Aunque cada mirada lleva consigo una interpretación singular, no es menos asombroso considerar que, incluso las maravillas más grandiosas de la naturaleza podrían sentir un atisbo de envidia ante tu existencia. Cada destello de tu esencia eclipsa, en su magnificencia, a los más sublimes prodigios de nuestro mundo.</div>
-                <button class="modal-close" id="closeModal">Cerrar</button>
-            </div>
-        </div>
-    </div>
+  
 
     <script>
-        async function fetchCurrentTime() {
-            try {
-                const response = await fetch('http://worldtimeapi.org/api/timezone/America/El_Salvador');
-                const data = await response.json();
-                return new Date(data.datetime);
-            } catch (error) {
-                //console.error('Error al obtener la hora:', error);
-                return new Date(); // En caso de error, usar la hora local
-            }
-        }
-        async function updateCountdown() {
-            const elSalvadorTime = await fetchCurrentTime();
-            
-            // Próxima medianoche (12:00 AM del siguiente día)
-            const nextMidnight = new Date(elSalvadorTime);
-         
+        function updateCountdown() {
+            const targetDate = new Date('2024-08-13T00:00:00'); // Fecha objetivo
+            const now = new Date(); // Hora actual del sistema
 
-            // Mostrar botón si es el 4 de agosto de 2024
-            const today = new Date(elSalvadorTime);
-            if (today.getFullYear() === 2024 && today.getMonth() === 7 && today.getDate() === 13) {
-                document.querySelector('.show-modal').style.display = 'block';
-                document.querySelector('.show-Date').style.display = 'none';
+            const timeDiff = targetDate - now;
+
+            if (timeDiff <= 0) {
+                document.getElementById('countdown').innerHTML = "<span>¡Ya está disponible!</span>";
+                return;
             }
+
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = `
+                <span>${days} días</span>
+                <span>${hours} horas</span>
+                <span>${minutes} minutos</span>
+                <span>${seconds} segundos</span>
+            `;
         }
 
-        // Actualizar el contador cada segundo
         setInterval(updateCountdown, 1000);
         updateCountdown(); 
-        document.getElementById('showModal').addEventListener('click', function() {
-            document.getElementById('modalOverlay').style.display = 'block';
-        });
-
-        document.getElementById('closeModal').addEventListener('click', function() {
-            document.getElementById('modalOverlay').style.display = 'none';
-        });
     </script>
 </body>
 </html>
