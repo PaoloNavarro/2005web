@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de Rascar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f0f0f0;
+            background: linear-gradient(135deg, #ffffff, #e4e4e4); /* Degradado de colores suaves */
+            background-size: 100px 100px; /* Tamaño del patrón */
+        }
+
+        .scratch-card {
+            background: linear-gradient(135deg, #ffc1b1, #ffaef7);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 300px;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #fff;
+        }
+
+        p {
+            color: #fff;
+            margin: 10px 0;
+        }
+
+        .scratch-area {
+            background: #ccc;
+            border-radius: 10px;
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scratch-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="scratch-card">
+        <div class="header">
+            <h1>Sabes...</h1>
+        </div>
+        <p>
+            "Dicen que la vida se teje de instantes,
+            donde la suma de ellos revela su verdadero valor.
+            El sentido, a veces, yace en saber vivir cada momento.
+            Una de mis mayores fortunas es el instante en que decidí hablar contigo."
+        </p>
+        <p class="text-center" style="color: rgb(129, 129, 246);">
+            Raspa aqui abajo
+        </p>
+        <h1>👇🏻👇🏻👇🏻👇🏻👇🏻</h1>
+        <div class="scratch-area" id="scratch-area">
+            <div class="scratch-text" style="margin-top: 10px;">
+                <h4>Me gustas mucho🥰</h4>
+                <h6>(Si te saque una sonrisa me debes una abrazo)</h6>
+            </div>
+            <canvas id="scratch-canvas"></canvas>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById('scratch-canvas');
+        const ctx = canvas.getContext('2d');
+        const scratchArea = document.getElementById('scratch-area');
+        const rect = scratchArea.getBoundingClientRect();
+
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
+        // Crear un patrón de puntos rojos sobre fondo blanco
+        const patternCanvas = document.createElement('canvas');
+        patternCanvas.width = 20;
+        patternCanvas.height = 20;
+        const patternCtx = patternCanvas.getContext('2d');
+
+        patternCtx.fillStyle = '#fff';
+        patternCtx.fillRect(0, 0, patternCanvas.width, patternCanvas.height);
+
+        patternCtx.fillStyle = '#ff0000';
+        patternCtx.beginPath();
+        patternCtx.arc(10, 10, 3, 0, 2 * Math.PI);
+        patternCtx.fill();
+
+        const pattern = ctx.createPattern(patternCanvas, 'repeat');
+
+        ctx.fillStyle = pattern;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        let isDrawing = false;
+
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        function getTouchPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.touches[0].clientX - rect.left,
+                y: e.touches[0].clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            const pos = e.touches ? getTouchPos(e) : getMousePos(e);
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.lineWidth = 20;
+            ctx.lineCap = 'round';
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseleave', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchmove', draw);
+
+        // Previene el desplazamiento de la página cuando se rasca en móviles
+        canvas.addEventListener('touchstart', (e) => e.preventDefault());
+        canvas.addEventListener('touchmove', (e) => e.preventDefault());
+    </script>
+</body>
+</html>
