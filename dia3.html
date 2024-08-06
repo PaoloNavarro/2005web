@@ -120,40 +120,64 @@
         }
 
         /* Estilo para el modal */
-        .modal {
-            display: none;
+        .show-modal {
+            display: none; /* Ocultar el botón por defecto */
+            margin-top: 20px;
+            margin-left: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #fff;
+            color: #ff886a;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay {
+            display: none; /* Ocultar el overlay por defecto */
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
+            background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+            backdrop-filter: blur(5px); /* Desenfoque del fondo */
+            z-index: 1; /* Asegura que el overlay esté por encima del contenido */
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 45%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 300px;
+            z-index: 2; /* Asegura que el modal esté por encima del overlay */
+        }
+
+        .modal-header {
+            font-size: 1.2em;
+            margin-bottom: 10px;
         }
 
         .modal-content {
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            width: 80%;
-            max-width: 500px;
-            overflow-y: auto;
-        }
-
-        .modal-content p {
-            margin: 0;
-            font-size: 1.2em;
+            font-size: 1em;
         }
 
         .modal-close {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #ff886a;
+            color: #fff;
+            font-size: 1em;
+            border-radius: 5px;
             cursor: pointer;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5em;
-            color: #000;
         }
 
         /* Estilo para el temporizador */
@@ -191,13 +215,41 @@
         }
 
         .back-button:hover {
-            background-color: #e07b5b;
+            background-color: #ffd9ce;
             transform: scale(1.05);
         }
 
         .back-button:active {
             background-color: #d06a4e;
         }
+        .btnReset{
+            margin-top: 20px;
+            border: none;
+            background-color: #d1a0ff;
+            color: #595555;
+            border-radius: 10px;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+
+        }
+        .btnReset:hover{
+            background-color: #ffcebf;
+            transform: scale(1.05);
+        }
+        .btnReset:active{
+            background-color: #ffddd3;
+            
+        }
+
+        .textX{
+            padding-top: 20px;
+        }
+        .textH{
+            color: white;
+        }
+        
     </style>
 </head>
 <body>
@@ -215,6 +267,7 @@
     </div>
 
     <div class="game-container" id="gameContainer">
+        <h4 class="textH">Para ver el mensaje gana una partida</h4>
         <div class="tic-tac-toe" id="ticTacToe">
             <div class="cell" data-index="0"></div>
             <div class="cell" data-index="1"></div>
@@ -226,33 +279,48 @@
             <div class="cell" data-index="7"></div>
             <div class="cell" data-index="8"></div>
         </div>
-        <button id="restartButton">Reiniciar</button>
+        <button  class="btnReset" id="restartButton">Reiniciar</button>
+        <button class="show-modal" id="showModal">¡Ver Mensaje!</button>
 
-        <div class="score" id="score">Jugador X</div>
-        <div class="game-over" id="gameOver">¡Juego Terminado!</div>
-        <div class="new-content" id="newContent">¡Contenido Nuevo!</div>
+        <div class="score textX" id="score">Jugador X</div>
+  
     </div>
 
-    <!-- Modal para mostrar mensaje de victoria -->
-    <div class="modal" id="winModal">
-        <div class="modal-content">
-            <span class="modal-close" id="modalClose">&times;</span>
-            <p id="modalMessage">
-            </p>
+   
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="cloud">
+                <div class="modal-header">Sabes...</div>
+                <div class="modal-content">
+                    <h1 style="text-align: center; color:#d1a0ff;">Me encantas!!!</h1>
+                    <h4 style="color: #000;">
+                        Hola este el detallito de hoy solo es recordarte que me encantas mucho y de comentarte las formas en las que me encantas.
+
+
+                    </h4>
+                    <h4>
+                        Por que el solo tenerte en mi vida es un regalo muy grande en ti encuentro
+                        lo que nunca habia encontrado, el nerviosismo por verte y hablar contigo,
+                        pero tambien la paz que jamas habia tenido, es un castigo por decirte niña pero que bueno
+                        que sea la niña en mi vida, mi 2005💖.
+                    </h4>
+                    <h6>
+                        Me encantas de tal manera que podria escribirte esto, y mil mensajes simialres a estos,
+                        me encantas de tal forma que no me importa si solo puedo verte 5 minutos,
+                        si solo puedo recibir dos mensajes tuyos al dia.
+                        eres una persona que vale la pena todo porque incluso con poco generas mucho.
+                        aunque siempre das mucho, consideracion, tiempo apoyo, y  tu tan linda compañia.
+                        tu me gustas y encantas de una manera increible espero verte pronto🥰
+                    </h6>
+                </div>
+                <button class="modal-close" id="closeModal">Cerrar</button>
+            </div>
         </div>
     </div>
 
     <script>
-        async function fetchCurrentTime() {
-            try {
-                const response = await fetch('http://worldtimeapi.org/api/timezone/America/El_Salvador');
-                const data = await response.json();
-                return new Date(data.datetime);
-            } catch (error) {
-                console.error('Error al obtener la hora:', error);
-                return new Date(); // En caso de error, usar la hora local
-            }
-        }
+    
 
         function updateCountdownDisplay(days, hours, minutes, seconds) {
             const countdown = document.getElementById('countdown');
@@ -265,8 +333,7 @@
         }
 
         async function updateCountdown() {
-            const elSalvadorTime = await fetchCurrentTime();
-            const today = new Date(elSalvadorTime);
+            const today =  new Date();
             const targetDate = new Date('2024-08-06T00:00:00');
             const timeDiff = targetDate - today;
 
@@ -284,15 +351,12 @@
 
             updateCountdownDisplay(days, hours, minutes, seconds);
         }
-
+  
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
         const cells = document.querySelectorAll('.cell');
         const restartButton = document.getElementById('restartButton');
-        const winModal = document.getElementById('winModal');
-        const modalMessage = document.getElementById('modalMessage');
-        const modalClose = document.getElementById('modalClose');
         let currentPlayer = 'X';
         let gameActive = true;
         const winningConditions = [
@@ -309,13 +373,15 @@
 
             cell.textContent = currentPlayer;
             if (checkWin()) {
-                showWinModal(`${currentPlayer} ha ganado!`);
+                alert(`${currentPlayer} ha ganado!`);
                 gameActive = false;
+                document.querySelector('.show-modal').style.display = 'block';
+
                 return;
             }
 
             if (isDraw()) {
-                showWinModal('Empate!');
+                 alert('Empate!');
                 gameActive = false;
                 return;
             }
@@ -343,13 +409,13 @@
             const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
             randomCell.textContent = 'O';
             if (checkWin()) {
-                showWinModal('O ha ganado!');
+                alert('O ha ganado!');
                 gameActive = false;
                 return;
             }
 
             if (isDraw()) {
-                showWinModal('Empate!');
+                alert('Empate!');
                 gameActive = false;
                 return;
             }
@@ -365,14 +431,6 @@
             document.getElementById('newContent').style.display = 'none';
         };
 
-        const showWinModal = (message) => {
-            modalMessage.textContent = message;
-            winModal.style.display = 'flex';
-        };
-
-        modalClose.addEventListener('click', () => {
-            winModal.style.display = 'none';
-        });
 
         const startGame = () => {
             cells.forEach(cell => cell.addEventListener('click', handleCellClick));
@@ -380,7 +438,7 @@
         };
 
         // Generar múltiples cuadrados con JavaScript
-        const numSquares = 200; // Número de cuadrados a generar
+        const numSquares = 500; // Número de cuadrados a generar
         const backgroundContainer = document.querySelector('.background-animation');
 
         for (let i = 0; i < numSquares; i++) {
@@ -393,6 +451,13 @@
             square.style.animationDuration = `${Math.random() * 30 + 15}s`;
             backgroundContainer.appendChild(square);
         }
+        document.getElementById('showModal').addEventListener('click', function() {
+            document.getElementById('modalOverlay').style.display = 'block';
+        });
+
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        });
     </script>
 </body>
 </html>
