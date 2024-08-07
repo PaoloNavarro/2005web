@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruleta</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            background: linear-gradient(135deg, #ffffff, #e4e4e4);
+            background-size: 50px 50px;
+            border-radius: 10px;
+
+
+        }
+
+        .container {
+            background-color: #e1fffb;
+            text-align: center;
+            position: relative;
+            padding: 20px;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+
+        }
+
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border: 10px solid #333;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            margin-left: 23%;
+        }
+
+        .segment {
+            width: 50%;
+            height: 50%;
+            background-color: #ffcc00;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform-origin: 0% 100%;
+            text-align: center;
+            line-height: 150px;
+            font-size: 24px;
+            font-weight: bold;
+            transition: border 0.5s ease;
+        }
+
+        .segment:nth-child(2) {
+            transform: rotate(60deg);
+            background-color: #ff9900;
+        }
+
+        .segment:nth-child(3) {
+            transform: rotate(120deg);
+            background-color: #ff6600;
+        }
+
+        .segment:nth-child(4) {
+            transform: rotate(180deg);
+            background-color: #ff3300;
+        }
+
+        .segment:nth-child(5) {
+            transform: rotate(240deg);
+            background-color: #ff0000;
+        }
+
+        .segment:nth-child(6) {
+            transform: rotate(300deg);
+            background-color: #cc0000;
+        }
+
+        .segment.hidden {
+            visibility: hidden;
+        }
+
+        .segment.highlight {
+            border: 5px solid #00ff00; /* Color de borde fluorescente */
+            box-shadow: 0 0 10px #00ff00; /* Efecto de resplandor */
+        }
+
+        #modal, #passwordModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            width: 80%;
+            max-width: 300px;
+        }
+
+        #modal input {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .result-input {
+            margin-top: 20px;
+            font-size: 18px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 600px) {
+            .wheel {
+                width: 200px;
+                height: 200px;
+            }
+            .segment {
+                line-height: 100px;
+                font-size: 18px;
+            }
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #ff886a;
+            color: #fff;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-button:hover {
+            background-color: #e07b5b;
+            transform: scale(1.05);
+        }
+
+        .back-button:active {
+            background-color: #d06a4e;
+        }
+
+        .back-button2 {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #35a797;
+            color: #fff;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .back-button2:hover {
+            background-color: #5be064;
+            transform: scale(1.05);
+        }
+
+        .back-button2:active {
+            background-color: #49cf52;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="wheel" id="wheel">
+            <div class="segment" id="segment-1">1</div>
+            <div class="segment" id="segment-2">2</div>
+            <div class="segment" id="segment-3">3</div>
+            <div class="segment" id="segment-4">4</div>
+            <div class="segment" id="segment-5">5</div>
+            <div class="segment" id="segment-6">6</div>
+        </div>
+        <button id="spinButton" class="back-button">Girar</button>
+        <p>Gira la ruleta esta te dara una contraseña que ingresaras en el recuadro de abajo.</p>
+
+        <p>Introduce la contraseña para el segmento <span id="segmentNumber"></span>:</p>
+        <p>NOTA: QUIZA QUIERAS PRESTAR ATENCION A LOS RESULTADOS.</p>
+        <input class="result-input" id="passwordInput" type="password">
+        <button id="checkPassword" class="back-button2">Ver mensaje con ese password</button>
+    </div>
+
+    <div id="overlay"></div>
+    <div id="modal">
+        <p id="modalMessage"></p>
+        <button onclick="closeModal()">Cerrar</button>
+    </div>
+    <div id="passwordModal">
+        <p id="passwordMessage"></p>
+        <button onclick="closePasswordModal()">Cerrar</button>
+    </div>
+
+     <!-- Audio for segment selection -->
+     <audio id="selectionSound" src="/select.mp3" preload="auto"></audio>
+     <!-- Audio for wheel spin -->
+     <audio id="spinSound" src="/spin.mp3" preload="auto"></audio>
+
+    <script>
+        const passwords = {
+            1: 'los30no',
+            2: 'mi2005',
+            3: 'afortuanadodeconocerte',
+            4: 'agostomesgenial',
+            5: 'mimayorregaloerestu',
+            6: 'incognita.'
+        };
+
+        const passwordMessages = {
+            1: 'Si escoges un mayor escogeme a mi💖 no uno de 30.(Tengo)',
+            2: 'Quiero que seas tu, en ti esta todo lo que necesito(Algo)',
+            3: 'Sin creerlo y sin saberlo eres lo que buscaba.(Que)',
+            4: 'La fortuna de romper el miedo me dio mi felcidad contigo(Preguntarte)',
+            5: 'Durante mucho tiempo no tenia la idea de cuanto necesitaba exactamente lo que eres tu.(EN NUESTRA)',
+            6: 'Debes prestar mucha atencion en los finales de cada respuesta(SALIDA)'
+        };
+
+        let availableSegments = [1, 2, 3, 4, 5, 6];
+
+        document.getElementById('spinButton').addEventListener('click', function() {
+            if (availableSegments.length === 0) {
+                alert('Todos los segmentos han sido seleccionados.');
+                return;
+            }
+
+            const wheel = document.getElementById('wheel');
+            const randomIndex = Math.floor(Math.random() * availableSegments.length);
+            const selectedSegment = availableSegments[randomIndex];
+            availableSegments.splice(randomIndex, 1); // Remove selected segment from the array
+
+            const degreePerSegment = 360 / 6;
+            const randomDegree = (selectedSegment - 1) * degreePerSegment + degreePerSegment / 2;
+            const totalDegree = randomDegree + 3600;
+
+            wheel.style.transition = 'transform 5s ease-out'; // Ajustado a 5 segundos
+            wheel.style.transform = `rotate(${totalDegree}deg)`;
+
+            // Reproduce el sonido de giro
+           // Reproduce el sonido de giro
+            const spinSound = document.getElementById('spinSound');
+            spinSound.play();
+
+            // Detiene el sonido de giro después de 5 segundos
+            setTimeout(() => {
+                spinSound.pause();
+                spinSound.currentTime = 0; // Resetea el tiempo del sonido
+            }, 5000); // Detiene el sonido a los 5 segundos
+
+            // Reproduce el sonido de selección después de que termine el sonido de giro
+            spinSound.onended = function() {
+                const selectionSound = document.getElementById('selectionSound');
+                selectionSound.play();
+            };
+            setTimeout(() => {
+                document.getElementById('segmentNumber').innerText = selectedSegment;
+                document.querySelector(`#segment-${selectedSegment}`).classList.add('highlight');
+
+                // Show modal with password
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('modal').style.display = 'block';
+                document.getElementById('modalMessage').innerText = `La contraseña para el segmento ${selectedSegment} es: ${passwords[selectedSegment]}`;
+            }, 4000); // 4 seconds to match the transition time
+        });
+
+        document.getElementById('checkPassword').addEventListener('click', function() {
+            const enteredPassword = document.getElementById('passwordInput').value;
+            const currentSegment = document.getElementById('segmentNumber').innerText;
+
+            if (enteredPassword === passwords[currentSegment]) {
+                document.getElementById('passwordMessage').innerText = passwordMessages[currentSegment];
+                document.getElementById('passwordModal').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            } else {
+                alert('Contraseña incorrecta. Intenta de nuevo.');
+            }
+        });
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+            resetWheel();
+        }
+
+        function closePasswordModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('passwordModal').style.display = 'none';
+            resetWheel();
+        }
+
+        function resetWheel() {
+            const wheel = document.getElementById('wheel');
+            wheel.style.transition = 'none';
+            wheel.style.transform = 'rotate(0deg)';
+            setTimeout(() => {
+                wheel.style.transition = 'transform 4s ease-out';
+            }, 0);
+
+            // Remove highlight from all segments
+            document.querySelectorAll('.segment').forEach(segment => {
+                segment.classList.remove('highlight');
+            });
+        }
+    </script>
+</body>
+</html>
