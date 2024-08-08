@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards Transitions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: #f0f0f0;
+        }
+
+        .card-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            perspective: 1000px;
+            margin-bottom: 20px; /* Space for buttons */
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            transition: transform 0.8s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card .content {
+            padding: 40px;
+            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .buttons button {
+            margin-top: 60px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+
+        .card-container {
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+
+        .card:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
+        .card:nth-child(2) { transform: rotateY(60deg) translateZ(300px); }
+        .card:nth-child(3) { transform: rotateY(120deg) translateZ(300px); }
+        .card:nth-child(4) { transform: rotateY(180deg) translateZ(300px); }
+        .card:nth-child(5) { transform: rotateY(240deg) translateZ(300px); }
+        .card:nth-child(6) { transform: rotateY(300deg) translateZ(300px); }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card" id="card1">
+            <div class="content">
+                <h2>Hola </h2>
+                <p>El detalle de hoy es sencillo lo hice al regresar de nuestra cita y estoy demasiado feliz
+                    no logro concretarme.</p>
+            </div>
+        </div>
+        <div class="card" id="card2">
+            <div class="content">
+                <h2>Solo quiero hablar</h2>
+                <p>De lo Produnfamente bien que se siente tenerte a cm de mi cara y poder apresiar lo linda que eres.</p>
+            </div>
+        </div>
+        <div class="card" id="card3">
+            <div class="content">
+                <h2>El privilegio que es tenerte a mi lado.</h2>
+                <p>Es para mi el poder tener 
+                    esta oportunidad a tu lado y se que cuidare de ti y de ello..</p>
+            </div>
+        </div>
+        <div class="card" id="card4">
+            <div class="content">
+                <h2>Quiero que seas tu</h2>
+                <p>Hoy mañana, pasado, y el resto del tiempo</p>
+            </div>
+        </div>
+        <div class="card" id="card5">
+            <div class="content">
+                <h2>Que me dures siempre</h2>
+                <p>Me fascinas me encantas y no se ni en que palabras ya definir todo lo que siento.</p>
+            </div>
+        </div>
+        <div class="card" id="card6">
+            <div class="content">
+                <h2>Quiero realmente que sea tu por el resto del tiempo💖</h2>
+            </div>
+        </div>
+    </div>
+    <div class="buttons">
+        <button onclick="prevCard()">Previous</button>
+        <button onclick="nextCard()">Next</button>
+    </div>
+    <script>
+        let currentCard = 0;
+        const cards = document.querySelectorAll('.card');
+        const cardContainer = document.querySelector('.card-container');
+
+        function showCard(index) {
+            cardContainer.style.transform = `rotateY(${-(index * 60)}deg)`;
+        }
+
+        function nextCard() {
+            currentCard = (currentCard + 1) % cards.length;
+            showCard(currentCard);
+        }
+
+        function prevCard() {
+            currentCard = (currentCard - 1 + cards.length) % cards.length;
+            showCard(currentCard);
+        }
+
+        // Initialize the first card
+        showCard(currentCard);
+    </script>
+</body>
+</html>
