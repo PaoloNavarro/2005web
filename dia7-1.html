@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel Vertical de Ventanas</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 80%;
+            height: 70%;
+            margin-bottom: 20px;
+        }
+
+        .carousel {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            height: 100%;
+            position: relative;
+        }
+
+        .window {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .window-header {
+            background-color: #e6e6e6;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        .close {
+            background-color: #e94f4f;
+        }
+
+        .minimize {
+            background-color: #f7c04a;
+        }
+
+        .maximize {
+            background-color: #4dbd74;
+        }
+
+        .title {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .window-content {
+            padding: 20px;
+            text-align: left;
+        }
+
+        pre {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        code {
+            display: block;
+            background-color: #f4f4f4;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 14px;
+            color: #333;
+            text-align: left;
+        }
+
+        button.prev, button.next {
+            position: absolute;
+            top: 50%;
+            background-color: #ddd;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 24px;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        button.prev {
+            left: -7%;
+        }
+
+        button.next {
+            right: -7%;
+        }
+
+        .result-container {
+            width: 80%;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-top: 2%;
+        }
+
+        .execute-btn {
+            padding-bottom: 20%;
+            background-color: #4dbd74;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            pre {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="window">
+                <div class="window-header">
+                    <div class="buttons">
+                        <div class="button close"></div>
+                        <div class="button minimize"></div>
+                        <div class="button maximize"></div>
+                    </div>
+                    <div class="title">Bloque 1</div>
+                </div>
+                <div class="window-content">
+                    <pre><code>while (true) {
+    // Mientra esto sea verdadero y como es a largo plazo
+    console.log("Te quiero");
+}</code></pre>
+                </div>
+            </div>
+            <div class="window">
+                <div class="window-header">
+                    <div class="buttons">
+                        <div class="button close"></div>
+                        <div class="button minimize"></div>
+                        <div class="button maximize"></div>
+                    </div>
+                    <div class="title">Bloque 2</div>
+                </div>
+                <div class="window-content">
+                    <pre><code>if (youWithMe) {
+    // Soy muy feliz es decir si tu estas conmigo yo soy feliz
+    console.log("para que te quedes");
+}</code></pre>
+                </div>
+            </div>
+            <div class="window">
+                <div class="window-header">
+                    <div class="buttons">
+                        <div class="button close"></div>
+                        <div class="button minimize"></div>
+                        <div class="button maximize"></div>
+                    </div>
+                    <div class="title">Bloque 3</div>
+                </div>
+                <div class="window-content">
+                    <pre><code>
+                        for (let i = 0; i < infinite; i++) {
+    // Eres mi sueño hecho realidad la singuralidad que siempre quiero conmigo
+    //este codigo se ejecutaria por el infinito de uno en uno
+
+    console.log("hasta el fin del fin");
+}</code></pre>
+                </div>
+            </div>
+        </div>
+        <button class="prev">⮜</button>
+        <button class="next">⮞</button>
+    </div>
+
+    <button class="execute-btn">Ejecutar Código</button>
+    <div class="result-container" id="result-container"></div>
+
+    <script>
+        const prevButton = document.querySelector('.prev');
+        const nextButton = document.querySelector('.next');
+        const carousel = document.querySelector('.carousel');
+        const executeButton = document.querySelector('.execute-btn');
+        const resultContainer = document.getElementById('result-container');
+
+        let index = 0;
+
+        function showWindow(index) {
+            const windows = document.querySelectorAll('.window');
+            windows.forEach((win, i) => {
+                win.style.display = (i === index) ? 'block' : 'none';
+            });
+        }
+
+        showWindow(index);
+
+        prevButton.addEventListener('click', () => {
+            index = (index > 0) ? index - 1 : document.querySelectorAll('.window').length - 1;
+            showWindow(index);
+        });
+
+        nextButton.addEventListener('click', () => {
+            index = (index < document.querySelectorAll('.window').length - 1) ? index + 1 : 0;
+            showWindow(index);
+        });
+
+        function simulateCodeExecution(code) {
+            const results = [];
+            if (code.includes('console.log')) {
+                const message = code.match(/console\.log\("(.*?)"\)/)[1];
+                results.push(message);
+            }
+            return results;
+        }
+
+        executeButton.addEventListener('click', () => {
+            const codes = [
+                `while (true) {
+    // Eres irresistible
+    console.log("Te quiero");
+}`,
+                `if (youWithMe) {
+    // Soy muy feliz
+    console.log("para que te quedes");
+}`,
+                `for (let i = 0; i < infinite; i++) {
+    // Eres mi sueño
+    console.log("hasta el fin del fin.");
+}`
+            ];
+
+            resultContainer.innerHTML = ''; // Clear previous results
+
+            codes.forEach((code, i) => {
+                const result = simulateCodeExecution(code);
+                const resultElement = document.createElement('div');
+                resultElement.innerHTML = `<strong>Resultado ${i + 1}:</strong><br>${result.join('<br>')}`;
+                resultContainer.appendChild(resultElement);
+            });
+        });
+    </script>
+</body>
+</html>

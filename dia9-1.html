@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrastra y Suelta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .droppable {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 10px;
+            width: 300px;
+            height: 300px;
+            background-color: #fff;
+            border: 2px dashed #ccc;
+            position: relative;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .slot {
+            width: 100%;
+            height: 100%;
+            background-color: #e0e0e0;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .card {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: grab;
+        }
+
+        .card.dragging {
+            opacity: 0.5;
+        }
+
+        .droppable.full {
+            border-color: #0f0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+        }
+
+        .draggable-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 300px;
+        }
+
+        .toast {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 16px;
+        }
+
+        .confetti {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 10;
+            display: none;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f;
+            opacity: 0.7;
+            transform: rotate(45deg);
+            animation: confetti-fall 1.5s forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.7;
+            }
+            100% {
+                transform: rotate(45deg) translateY(500px);
+                opacity: 0;
+            }
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="droppable" id="drop-zone">
+            <div class="slot" id="slot1"></div>
+            <div class="slot" id="slot2"></div>
+            <div class="slot" id="slot3"></div>
+            <div class="slot" id="slot4"></div>
+        </div>
+        <div class="draggable-cards">
+            <div class="card" draggable="true" id="card1">te</div>
+            <div class="card" draggable="true" id="card2">debo</div>
+            <div class="card" draggable="true" id="card3">100</div>
+            <div class="card" draggable="true" id="card4">1000</div>
+            <div class="card" draggable="true" id="card5">un millón</div>
+            <div class="card" draggable="true" id="card6">besos</div>
+            <div class="card" draggable="true" id="card7">abrazos</div>
+            <div class="card" draggable="true" id="card8">citas</div>
+        </div>
+        <div class="button-container">
+            <button id="clear-button">Limpiar</button>
+        </div>
+    </div>
+    <div id="toast" class="toast">¿No quieres enviarme esto? 🥰</div>
+    <div id="confetti" class="confetti"></div>
+    <script>
+        const cards = document.querySelectorAll('.card');
+        const slots = document.querySelectorAll('.slot');
+        const dropZone = document.getElementById('drop-zone');
+        const toast = document.getElementById('toast');
+        const confetti = document.getElementById('confetti');
+        const clearButton = document.getElementById('clear-button');
+
+        cards.forEach(card => {
+            card.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', e.target.id);
+                e.target.classList.add('dragging');
+            });
+
+            card.addEventListener('dragend', (e) => {
+                e.target.classList.remove('dragging');
+            });
+        });
+
+        slots.forEach(slot => {
+            slot.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+
+            slot.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const cardId = e.dataTransfer.getData('text/plain');
+                const card = document.getElementById(cardId);
+                if (slot.childElementCount === 0) {
+                    slot.appendChild(card);
+                    checkSlots();
+                }
+            });
+        });
+
+        function checkSlots() {
+            const filledSlots = document.querySelectorAll('.slot:not(:empty)').length;
+            if (filledSlots === 4) {
+                dropZone.classList.add('full');
+                showToast();
+                showConfetti();
+            } else {
+                dropZone.classList.remove('full');
+            }
+        }
+
+        function showToast() {
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000); // Show toast for 3 seconds
+        }
+
+        function showConfetti() {
+            confetti.style.display = 'block';
+            createConfetti();
+            setTimeout(() => {
+                confetti.style.display = 'none';
+            }, 1500); // Show confetti for 1.5 seconds
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+                piece.style.left = `${Math.random() * 100}%`;
+                piece.style.animationDelay = `${Math.random() * 1.5}s`;
+                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.appendChild(piece);
+            }
+        }
+
+        // Allow removing cards by clicking on them
+        slots.forEach(slot => {
+            slot.addEventListener('click', (e) => {
+                if (e.target.classList.contains('card')) {
+                    slot.removeChild(e.target);
+                    checkSlots();
+                }
+            });
+        });
+
+        // Clear button functionality
+        clearButton.addEventListener('click', () => {
+            location.reload();
+        });
+    </script>
+</body>
+</html>

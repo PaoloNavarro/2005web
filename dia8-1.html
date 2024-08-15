@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor Binario</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url('./image/text1.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+            text-align: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #ffffffcc; /* Fondo semi-transparente para la tarjeta */
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px); /* Desenfoque del fondo */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .binary {
+            display: block;
+            font-size: 16px; /* Tamaño del texto de binario */
+            word-break: break-all;
+            flex: 1;
+            text-align: left;
+        }
+
+        button {
+            padding: 12px 24px;
+            margin: 8px;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .copy-btn {
+            background-color: #007bff;
+        }
+
+        .translate-btn {
+            background-color: #28a745;
+        }
+
+        .clear-btn {
+            background-color: #dc3545;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            padding: 12px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        #translation-result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* Estilos para el toast */
+        .toast {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+            white-space: nowrap;
+            padding: 16px;
+        }
+
+        .toast.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @-webkit-keyframes fadein {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadein {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @-webkit-keyframes fadeout {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        @keyframes fadeout {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h5>Lista con secretitos copia y pegalos abajo.</h5>
+            <ul id="binary-list">
+                <li>
+                    <span class="binary">01110100 01100101 00100000 01110001 01110101 01101001 01100101 01110010 01101111 00100000 01101101 01110101 01100011 01101000 01101111</span>
+                    <button class="copy-btn" onclick="copyToClipboard('01110100 01100101 00100000 01110001 01110101 01101001 01100101 01110010 01101111 00100000 01101101 01110101 01100011 01101000 01101111')">Copiar</button>
+                </li>
+                <li>
+                    <span class="binary">01101101 01100101 00100000 01100111 01110101 01110011 01110100 01100001 01110011</span>
+                    <button class="copy-btn" onclick="copyToClipboard('01101101 01100101 00100000 01100111 01110101 01110011 01110100 01100001 01110011')">Copiar</button>
+                </li>
+                <li>
+                    <span class="binary">01101101 01100101 00100000 01100101 01101110 01100011 01100001 01101110 01110100 01100001 01110011 00100000 01101000 01100101 01110010 01101101 01101111 01110011 01100001</span>
+                    <button class="copy-btn" onclick="copyToClipboard('01101101 01100101 00100000 01100101 01101110 01100011 01100001 01101110 01110100 01100001 01110011 00100000 01101000 01100101 01110010 01101101 01101111 01110011 01100001')">Copiar</button>
+                </li>
+                <li>
+                    <span class="binary">01110100 01100101 00100000 01101000 01100101 01100011 01101000 01101111 00100000 01100100 01100101 00100000 01101101 01100101 01101110 01101111 01110011</span>
+                    <button class="copy-btn" onclick="copyToClipboard('01110100 01100101 00100000 01101000 01100101 01100011 01101000 01101111 00100000 01100100 01100101 00100000 01101101 01100101 01101110 01101111 01110011')">Copiar</button>
+                </li>
+            </ul>
+
+            <textarea id="binary-input" placeholder="Pega el binario aquí..."></textarea>
+            <div>
+                <button class="translate-btn" onclick="translateBinary()">Traducir</button>
+                <button class="clear-btn" onclick="clearText()">Limpiar</button>
+            </div>
+            <h5>Resultado aqui👇🏻👇🏻👇🏻👇🏻</h5>
+            <div id="translation-result"></div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Texto copiado al portapapeles!</div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Texto copiado al portapapeles!');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show';
+            setTimeout(() => {
+                toast.className = toast.className.replace('show', '');
+            }, 3000);
+        }
+
+        function translateBinary() {
+            const binaryInput = document.getElementById('binary-input').value.trim();
+            const binaryArray = binaryInput.split(' ');
+            let result = '';
+
+            binaryArray.forEach(bin => {
+                let charCode = parseInt(bin, 2);
+                result += String.fromCharCode(charCode);
+            });
+
+            document.getElementById('translation-result').innerText = result;
+        }
+
+        function clearText() {
+            document.getElementById('binary-input').value = '';
+            document.getElementById('translation-result').innerText = '';
+        }
+    </script>
+</body>
+</html>
