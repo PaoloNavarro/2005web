@@ -81,16 +81,17 @@
         .toast {
             display: none;
             position: fixed;
-            bottom: 20px;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #333;
+            background-color: #7caca7;
             color: #fff;
             padding: 10px 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             font-size: 16px;
         }
+
 
         .confetti {
             position: absolute;
@@ -172,94 +173,147 @@
     <div id="toast" class="toast">¿No quieres enviarme esto? 🥰</div>
     <div id="confetti" class="confetti"></div>
     <script>
-        const cards = document.querySelectorAll('.card');
-        const slots = document.querySelectorAll('.slot');
-        const dropZone = document.getElementById('drop-zone');
-        const toast = document.getElementById('toast');
-        const confetti = document.getElementById('confetti');
-        const clearButton = document.getElementById('clear-button');
+   const cards = document.querySelectorAll('.card');
+const slots = document.querySelectorAll('.slot');
+const dropZone = document.getElementById('drop-zone');
+const toast = document.getElementById('toast');
+const confetti = document.getElementById('confetti');
+const clearButton = document.getElementById('clear-button');
 
-        cards.forEach(card => {
-            card.addEventListener('dragstart', (e) => {
-                e.dataTransfer.setData('text/plain', e.target.id);
-                e.target.classList.add('dragging');
-            });
+// Manejo de eventos de arrastre
+cards.forEach(card => {
+    card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', e.target.id);
+        e.target.classList.add('dragging');
+    });
 
-            card.addEventListener('dragend', (e) => {
-                e.target.classList.remove('dragging');
-            });
-        });
+    card.addEventListener('dragend', (e) => {
+        e.target.classList.remove('dragging');
+    });
 
+    // Añadir eventos de toque
+    card.addEventListener('touchstart', handleTouchStart);
+    card.addEventListener('touchmove', handleTouchMove);
+    card.addEventListener('touchend', handleTouchEnd);
+});
+
+slots.forEach(slot => {
+    slot.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    });
+
+    slot.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const cardId = e.dataTransfer.getData('text/plain');
+        const card = document.getElementById(cardId);
+        if (slot.childElementCount === 0) {
+            slot.appendChild(card);
+            checkSlots();
+        }
+    });
+
+    // Añadir eventos de toque
+    slot.addEventListener('touchstart', handleTouchStart);
+    slot.addEventListener('touchend', handleTouchEnd);
+});
+
+// Funciones para arrastrar con toque
+let draggedCard = null;
+function handleTouchStart(e) {
+    draggedCard = e.target;
+    draggedCard.classList.add('dragging');
+}
+
+function handleTouchMove(e) {
+    if (!draggedCard) return;
+    const touch = e.touches[0];
+    draggedCard.style.position = 'absolute';
+    draggedCard.style.left = `${touch.pageX - draggedCard.offsetWidth / 2}px`;
+    draggedCard.style.top = `${touch.pageY - draggedCard.offsetHeight / 2}px`;
+}
+
+function handleTouchEnd(e) {
+    if (!draggedCard) return;
+    const touch = e.changedTouches[0];
+    const dropZoneRect = dropZone.getBoundingClientRect();
+    const cardRect = draggedCard.getBoundingClientRect();
+    const isInDropZone = cardRect.left >= dropZoneRect.left && cardRect.right <= dropZoneRect.right &&
+        cardRect.top >= dropZoneRect.top && cardRect.bottom <= dropZoneRect.bottom;
+
+    if (isInDropZone) {
         slots.forEach(slot => {
-            slot.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-            });
-
-            slot.addEventListener('drop', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const cardId = e.dataTransfer.getData('text/plain');
-                const card = document.getElementById(cardId);
+            const slotRect = slot.getBoundingClientRect();
+            if (cardRect.left >= slotRect.left && cardRect.right <= slotRect.right &&
+                cardRect.top >= slotRect.top && cardRect.bottom <= slotRect.bottom) {
                 if (slot.childElementCount === 0) {
-                    slot.appendChild(card);
+                    slot.appendChild(draggedCard);
                     checkSlots();
                 }
-            });
-        });
-
-        function checkSlots() {
-            const filledSlots = document.querySelectorAll('.slot:not(:empty)').length;
-            if (filledSlots === 4) {
-                dropZone.classList.add('full');
-                showToast();
-                showConfetti();
-            } else {
-                dropZone.classList.remove('full');
             }
-        }
-
-        function showToast() {
-            toast.style.display = 'block';
-            setTimeout(() => {
-                toast.style.display = 'none';
-            }, 3000); // Show toast for 3 seconds
-        }
-
-        function showConfetti() {
-            confetti.style.display = 'block';
-            createConfetti();
-            setTimeout(() => {
-                confetti.style.display = 'none';
-            }, 1500); // Show confetti for 1.5 seconds
-        }
-
-        function createConfetti() {
-            for (let i = 0; i < 100; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'confetti-piece';
-                piece.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
-                piece.style.left = `${Math.random() * 100}%`;
-                piece.style.animationDelay = `${Math.random() * 1.5}s`;
-                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
-                confetti.appendChild(piece);
-            }
-        }
-
-        // Allow removing cards by clicking on them
-        slots.forEach(slot => {
-            slot.addEventListener('click', (e) => {
-                if (e.target.classList.contains('card')) {
-                    slot.removeChild(e.target);
-                    checkSlots();
-                }
-            });
         });
+    }
+    draggedCard.classList.remove('dragging');
+    draggedCard.style.position = '';
+    draggedCard.style.left = '';
+    draggedCard.style.top = '';
+    draggedCard = null;
+}
 
-        // Clear button functionality
-        clearButton.addEventListener('click', () => {
-            location.reload();
-        });
+function checkSlots() {
+    const filledSlots = document.querySelectorAll('.slot:not(:empty)').length;
+    if (filledSlots === 4) {
+        dropZone.classList.add('full');
+        showToast();
+        showConfetti();
+    } else {
+        dropZone.classList.remove('full');
+    }
+}
+
+function showToast() {
+    toast.style.display = 'block';
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 3000); // Show toast for 3 seconds
+}
+
+function showConfetti() {
+    confetti.style.display = 'block';
+    createConfetti();
+    setTimeout(() => {
+        confetti.style.display = 'none';
+    }, 1500); // Show confetti for 1.5 seconds
+}
+
+function createConfetti() {
+    for (let i = 0; i < 100; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.animationDelay = `${Math.random() * 1.5}s`;
+        piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+        confetti.appendChild(piece);
+    }
+}
+
+// Allow removing cards by clicking on them
+slots.forEach(slot => {
+    slot.addEventListener('click', (e) => {
+        if (e.target.classList.contains('card')) {
+            slot.removeChild(e.target);
+            checkSlots();
+        }
+    });
+});
+
+// Clear button functionality
+clearButton.addEventListener('click', () => {
+    location.reload();
+});
+
     </script>
 </body>
 </html>
