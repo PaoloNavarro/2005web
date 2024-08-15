@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fecha y Modal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #modal {
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.5); 
+            animation: fadeIn 0.5s;
+            display: none; /* Ocultar el modal por defecto */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            animation: slideIn 0.5s;
+        }
+
+        .modal-card h2 {
+            margin-top: 0;
+        }
+
+        .modal-card p {
+            margin: 10px 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 24px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h4>Veremos si recuerdas algunas fechas(Son tres fechas)</h4>
+        <input type="date" id="dateInput" />
+        <button onclick="checkDate()">Verificar Fecha</button>
+    </div>
+
+    <div id="modal" class="modal">
+        <div id="modal-content" class="modal-card">
+            <span class="close" onclick="closeModal()">×</span>
+            <h2 id="modal-title">¡Fecha Correcta!</h2>
+            <p id="modal-message">Has ingresado la fecha correcta. Aquí hay algunas instrucciones o mensajes adicionales para el usuario.</p>
+        </div>
+    </div>
+
+    <script>
+        function checkDate() {
+            const inputDate = document.getElementById('dateInput').value;
+            
+            const messages = {
+                '2024-08-07': '¡Tercera cita! Es la tercera cita y un miercoles el tercer dia, 73 como dije, es nuestro inicio oficial.',
+                '2024-08-02': '¡Segunda cita! Descubri que tus ojitos serian los que quiero ver el resto de mi vida.',
+                '2024-07-13': '¡Primara cita! Es un dia donde descrubri que tu compañia era hermosa tanto fisicamente como en texto era lo mismo, y que podria escucharte por mucho tiempo.',
+            };
+            
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalMessage = document.getElementById('modal-message');
+            
+            if (messages[inputDate]) {
+                modalTitle.textContent = '¡Fecha Correcta!';
+                modalMessage.textContent = messages[inputDate];
+                modal.style.display = 'flex';
+            } else {
+                modalTitle.textContent = '¡Error!';
+                modalMessage.textContent = 'La fecha ingresada es incorrecta. Por favor, intenta con una fecha válida.';
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
