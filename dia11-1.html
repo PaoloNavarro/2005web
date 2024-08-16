@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de WhatsApp</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e5e5e5;
+            font-family: Arial, sans-serif;
+        }
+
+        .phone {
+            width: 360px;
+            height: 720px;
+            background-color: #000;
+            border-radius: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .screen {
+            flex: 1;
+            background-color: #fff;
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-image: url('./image/fondotextura..jpg'); /* Fondo similar al de WhatsApp */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #075e54;
+            color: white;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .header .contact-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .chat-container {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            background-color: #e0e0e0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            max-width: 70%;
+            align-self: flex-start;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-50px);
+            animation: drop 0.5s ease forwards;
+        }
+
+        .message.self {
+            align-self: flex-end;
+            background-color: #dcf8c6;
+        }
+
+        .message .timestamp {
+            font-size: 12px;
+            color: #888;
+            position: absolute;
+            bottom: 2%; /* Ajusta la posición vertical aquí */
+            right: 10px;
+        }
+        .message {
+            /* Resto del código */
+            position: relative;
+        }
+
+        .message .seen {
+            position: absolute;
+            bottom: 5px; /* Ajusta según sea necesario */
+            right: 10px;
+            width: 15px;
+            height: 15px;
+            background-image: url('./image/seen-icon.png'); /* Icono de check visto */
+            background-size: cover;
+        }
+
+
+        @keyframes drop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .input-container {
+            display: flex;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            margin-right: 10px;
+            background-color: #e0e0e0;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            background-color: #075e54;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #075e54;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone">
+        <div class="screen">
+            <div class="header">
+                <img src="./image/avatar.png" alt="Perfil">
+                <span class="contact-name">Paolo</span>
+            </div>
+            <div id="chat" class="chat-container"></div>
+            <div class="input-container">
+                <input type="text" id="messageInput" placeholder="¿Quieres decirme algo? Escríbelo aquí y envíalo. <3">
+                <button onclick="openModal()">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p><strong>Copia o toma una captura y envíamelo si así quieres.</strong></p>
+            <p id="modalText">Aquí irá el mensaje.</p>
+            <button onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            "Hola, espero que estés bien 😊",
+            "Solo quería contarte unas cositas. 📝",
+            "¿Puedo contártelo? 🤗",
+            "Sabes, cuando te conocí hace un par de meses atrás 🗓️",
+            "Yo no era capaz de darme cuenta de todo lo que se nos venía 😱",
+            "Nunca me imaginé que encontraría todo lo que siempre había buscado en una niña",
+            "Bueno, no una niña, 'mi niña' 🥰",
+            "Y aunque por muchas noches 🌃 me pregunté ❓",
+            "¿Seré el único que siente algo más profundo? 🤔",
+            "Vaya que lo llegué a considerar",
+            "Bueno, tú sabes que lo consideré... 😟",
+            "Hubo un momento en que quise frenarlo... 🛑",
+            "Pero acaso, ¿podrías frenar algo tan profundo? 💓",
+            "Entendí que el miedo de afrontar la realidad",
+            "Era necesario cuando entendí que si faltaras",
+            "Me sentiría demasiado triste, y probablemente",
+            "Un poco deprimido 😔. Era mi chat diario",
+            "Y día a día crecía mi sentimiento contigo 💖",
+            "Entonces, ¿por qué no intentarlo? 🤷",
+            "Y qué bueno que lo hice 😊",
+            "Tengo un orgullo tan grande, me siento afortunado 🙌",
+            "Tenerte conmigo para mí es un logro 🎉",
+            "Pues tener una persona tan hermosa como tú es un éxito digno de admirar 🌟",
+            "No me quedo solo en lo lindo físico",
+            "Que lo eres, realmente eres la mujer más hermosa que conozco 😍",
+            "Morenita, rizada y con unos ojitos tan lindos como una piedrita invaluable 💎",
+            "Si no que también me refiero a lo que conlleva tu ser 🌺",
+            "Te admiro y me encantas 😘",
+            "Te pienso y me traes paz 🕊️",
+            "Incluso en mis sueños estás 🌙",
+            "Y mi futuro lo quiero contigo 💑",
+            "No puedo controlarlo, por eso con mi presente intentaré convencerte cada día de que te quedes 💌",
+            "Este es un detalle sencillo, solo quiero que sepas que me encantas",
+            "Y te quiero mucho 🥰",
+            "A mí, envía mil fotos 📸, que tendrás por cada foto mil mensajes 💬, que aunque no lo creas, las veré con orgullo 🙌.",
+            "A mí, tú me encantas de verdad 💕, de una forma que mis intenciones son cuidarte, quererte y amarte 💖.",
+            "Porque en ti está todo aquello que no había visto en nadie 😍, porque combinamos tal cual dice la canción 🎵.",
+            "Pero en este caso, sin cosas que dije, y qué bueno que puedo decírtelas 😊, porque juro que no podía más guardándolas 😔.",
+            "Lo que siento es grande y la única razón por la que a veces no digo todo lo que siento 😣, es para que con cada día vayas notando cómo va creciendo todo 🌱.",
+            "A este ritmo, estar conmigo por siempre 💑, pues cada día me enamoro más y cada día creo que puedo lograr que tú me quieras más 💘.",
+            "Solo quería contarte el inicio de la historia de un joven, porque viejito no, de 22 años nacido en 2001 🎂, y una niña de 18 nacida en 2005 🎉."
+        ];
+
+        function formatTime(date) {
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        function createMessageElement(text, timestamp, isSeen = false) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.textContent = text;
+            if (timestamp) {
+                const timestampElement = document.createElement('span');
+                timestampElement.classList.add('timestamp');
+                timestampElement.textContent = timestamp;
+                messageElement.appendChild(timestampElement);
+            }
+            if (isSeen) {
+                const seenElement = document.createElement('div');
+                seenElement.classList.add('seen');
+                messageElement.appendChild(seenElement);
+            }
+            return messageElement;
+        }
+
+        function simulateMessages() {
+            const chatContainer = document.getElementById('chat');
+            const now = new Date();
+            let delay = 0;
+
+            messages.forEach((message, index) => {
+                setTimeout(() => {
+                    playSendSound()
+                    const timestamp = formatTime(new Date(now.getTime() + index * 60000));
+                    const messageElement = createMessageElement(message, timestamp, index % 2 === 0); // Marcar como visto cada segundo mensaje
+                    chatContainer.appendChild(messageElement);
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }, delay);
+                delay += 2000;
+            });
+        }
+
+        function playSendSound() {
+            const audio = new Audio('./image/send.mp3');
+            audio.play();
+        }
+
+        function openModal() {
+            const messageInput = document.getElementById('messageInput');
+            const modal = document.getElementById('modal');
+            const modalText = document.getElementById('modalText');
+            modalText.textContent = messageInput.value || "¡No escribiste nada!";
+            modal.style.display = 'flex';
+            playSendSound(); // Reproduce el sonido al enviar
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onload = simulateMessages;
+
+    </script>
+</body>
+</html>
