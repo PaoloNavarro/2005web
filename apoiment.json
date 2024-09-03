@@ -1,0 +1,59 @@
+{
+    "appointments": [
+        {
+            "id": 1,
+            "nombre": "Primera cita♥️",
+            "descripcion": "Nos vimos en el cine, vimos mi villano favorito 4, luego fuimos por un cafe.",
+            "fecha": "2024-07-13",
+            "hora": "01:05 PM a 5:17 PM",
+            "imagen": "",
+            "palabras_clave": ["Primera cita", "Cine","Cafe"],
+            "es_fecha_especial": false,
+            "tipo_fecha": "cita"
+        },
+        {
+            "id": 2,
+            "nombre": "Segunda cita",
+            "descripcion": "Nos reunimos en la pizza, fue el dia que al final fuimos honesto sobre el gusto del uno con el otro",
+            "fecha": "2024-08-02",
+            "hora": "11:51 AM a 3:38 PM",
+            "imagen": "",
+            "palabras_clave": ["Segunda cita", "Confesion","Pizza","Padres"],
+            "es_fecha_especial": false,
+            "tipo_fecha": "cita"
+        },
+        {
+            "id": 3,
+            "nombre": "Tercera cita",
+            "descripcion": "Tomamos unas bebidas,en zarzamaora no hicimos novios. ",
+            "fecha": "2024-08-07",
+            "hora": "02:15 PM a 4:19 PM",
+            "imagen": "./image/dates/1.jpg",
+            "palabras_clave": ["Novios"],
+            "es_fecha_especial": false,
+            "tipo_fecha": "cita"
+        },
+        {
+            "id": 4,
+            "nombre": "Cuarta cita",
+            "descripcion": "Nos vimos en la universidad,nos tomamos de la mano al caminar, nos dimos un besito al despedirnos. ",
+            "fecha": "2024-08-22",
+            "hora": "12:00 PM a 1:30 PM",
+            "imagen": "",
+            "palabras_clave": ["Universidad"],
+            "es_fecha_especial": false,
+            "tipo_fecha": "cita"
+        },
+        {
+            "id": 5,
+            "nombre": "Quinta cita",
+            "descripcion": "Nos vimos en ciudad arce, comimos crepas, nos dimso muchos besitos. me regalaste una virgi que da abrazos.",
+            "fecha": "2024-08-29",
+            "hora": "11:15 PM a 2:44 PM",
+            "imagen": "./image/dates/2.jpg",
+            "palabras_clave": ["Arce","Regalo"],
+            "es_fecha_especial": false,
+            "tipo_fecha": "cita"
+        }
+    ]
+}

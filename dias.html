@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlador de Citas Románticas</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 100%;
+            background-color: #a3a3a3;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .sidebar label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .sidebar input[type="text"],
+        .sidebar select {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            text-align: center;
+        }
+
+        /* Container */
+        .container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .appointment-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .appointment-item {
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .appointment-item:hover {
+            background-color: #eaeaea;
+        }
+
+        .appointment-item h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .details {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 0;
+            border-top: 1px solid #ddd;
+        }
+
+        .details.active {
+            display: block;
+        }
+
+        .details p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #333;
+        }
+
+        /* Media Queries para móviles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .sidebar input[type="text"],
+            .sidebar select {
+                width: 100%;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .appointment-item h3 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Filtros</h2>
+        <label for="search">Buscar por palabra</label>
+        <input type="text" id="search" oninput="filterAppointments()" placeholder="Buscar...">
+
+        <label for="month-filter">Filtrar por mes</label>
+        <select id="month-filter" onchange="filterAppointments()">
+            <option value="all">Todos los meses</option>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+
+
+            <!-- Añade más meses según sea necesario -->
+        </select>
+    </div>
+
+    <div class="container" id="appointment-container">
+        <!-- Contenido generado dinámicamente desde el JSON -->
+    </div>
+
+    <script>
+        // Función para cargar el archivo JSON
+        function loadJSON(callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.overrideMimeType("application/json");
+            xhr.open('GET', 'apoiment.json', true); // Cambia la URL al archivo JSON
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    callback(JSON.parse(xhr.responseText));
+                }
+            };
+            xhr.send(null);
+        }
+
+        // Función para renderizar las citas
+        function renderAppointments(data) {
+            const container = document.getElementById('appointment-container');
+            container.innerHTML = ''; // Limpiar el contenido previo
+
+            data.appointments.forEach(appointment => {
+                const item = document.createElement('li');
+                item.classList.add('appointment-item');
+                item.setAttribute('data-month', appointment.fecha.split('-')[1]);
+                item.setAttribute('data-keywords', appointment.palabras_clave.join(' '));
+                item.innerHTML = `
+                    <div>
+                        <h3>${appointment.nombre}</h3>
+                        <div class="details">
+                            <p>Fecha: ${appointment.fecha}</p>
+                            <p>Hora: ${appointment.hora}</p>
+                            <p>Descripción: ${appointment.descripcion}</p>
+                            ${appointment.imagen ? `<img src="${appointment.imagen}" alt="Foto de ${appointment.nombre}" class="profile-pic">` : ''}
+                        </div>
+                    </div>
+                `;
+                item.addEventListener('click', () => toggleDetails(item));
+                container.appendChild(item);
+            });
+        }
+
+        // Filtrar y mostrar resultados
+        function filterAppointments() {
+            const searchInput = document.getElementById('search').value.toLowerCase();
+            const monthFilter = document.getElementById('month-filter').value;
+            const appointments = document.querySelectorAll('.appointment-item');
+
+            appointments.forEach(appointment => {
+                const keywords = appointment.getAttribute('data-keywords').toLowerCase();
+                const month = appointment.getAttribute('data-month');
+
+                const matchesSearch = keywords.includes(searchInput);
+                const matchesMonth = monthFilter === 'all' || month === monthFilter;
+
+                if (matchesSearch && matchesMonth) {
+                    appointment.style.display = '';
+                } else {
+                    appointment.style.display = 'none';
+                }
+            });
+        }
+
+        // Función para mostrar u ocultar detalles
+        function toggleDetails(item) {
+            const details = item.querySelector('.details');
+            details.classList.toggle('active');
+        }
+
+        // Cargar y renderizar citas al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadJSON(renderAppointments);
+        });
+    </script>
+</body>
+</html>
