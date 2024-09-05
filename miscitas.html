@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Citas con Supabase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button.delete {
+            background-color: #dc3545;
+        }
+    </style>
+        <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+</head>
+<body>
+
+<div class="container">
+    <h1>CRUD de Citas con Supabase</h1>
+
+    <!-- Formulario para agregar citas -->
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Nombre de la cita">
+    </div>
+
+    <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" placeholder="Descripción de la cita"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha">
+    </div>
+
+    <div class="form-group">
+        <label for="hora">Hora:</label>
+        <input type="text" id="hora" placeholder="01:00 PM a 03:00 PM">
+    </div>
+
+    <button onclick="createAppointment()">Agregar Cita</button>
+
+    <!-- Tabla de citas -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="appointmentList">
+            <!-- Las citas se mostrarán aquí -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Inicializar la conexión a Supabase
+    const { createClient } = supabase
+
+    const supabaseUrl = 'https://wcfnnhtzwhvgecuacoft.supabase.co/';  // Reemplaza con tu URL de Supabase
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndjZm5uaHR6d2h2Z2VjdWFjb2Z0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0OTgxODMsImV4cCI6MjA0MTA3NDE4M30.r9QE2X2kbts2-t6nHT-8uGna51KL_iYMGJ3SANtAhss';  // Reemplaza con tu clave secreta
+    const _supabase  = createClient(supabaseUrl, supabaseKey);
+
+    // Función para cargar citas
+    async function loadAppointments() {
+        const { data, error } = await _supabase
+            .from('appointments')
+            .select('*');
+
+        if (error) {
+            console.error('Error cargando citas:', error);
+        } else {
+            const tableBody = document.getElementById('appointmentList');
+            tableBody.innerHTML = '';  // Limpiar la tabla antes de cargar los datos
+
+            data.forEach(appointment => {
+                const row = `<tr>
+                    <td>${appointment.id}</td>
+                    <td>${appointment.nombre}</td>
+                    <td>${appointment.descripcion}</td>
+                    <td>${appointment.fecha}</td>
+                    <td>${appointment.hora}</td>
+                    <td>
+                        <button onclick="deleteAppointment(${appointment.id})" class="delete">Eliminar</button>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+    }
+
+    // Función para crear una cita
+    async function createAppointment() {
+        const nombre = document.getElementById('nombre').value;
+        const descripcion = document.getElementById('descripcion').value;
+        const fecha = document.getElementById('fecha').value;
+        const hora = document.getElementById('hora').value;
+
+        const { data, error } = await _supabase
+            .from('appointments')
+            .insert([{ nombre, descripcion, fecha, hora }]);
+
+        if (error) {
+            console.error('Error creando cita:', error);
+        } else {
+            alert('Cita agregada con éxito');
+            loadAppointments();  // Recargar la lista de citas
+        }
+    }
+
+    // Función para eliminar una cita
+    async function deleteAppointment(id) {
+        const { error } = await _supabase
+            .from('appointments')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error('Error eliminando cita:', error);
+        } else {
+            alert('Cita eliminada con éxito');
+            loadAppointments();  // Recargar la lista de citas
+        }
+    }
+
+    // Cargar citas cuando la página se cargue
+    window.onload = loadAppointments;
+</script>
+
+</body>
+</html>
